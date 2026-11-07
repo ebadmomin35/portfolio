@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ebad Momin | Forward Deployed Engineer &amp; GenAI Developer</title>
+  <meta name="description" content="Ebad Momin, Forward Deployed Engineer (FDE), GenAI Developer and AI Solutions Architect in Thane, Mumbai.">
+  <meta name="theme-color" content="#090909">
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..900&family=Geist+Mono:wght@400..700&family=Urbanist:wght@700..900&display=swap">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/photo-dissolve.css">
+  <link rel="stylesheet" href="css/about.css">
+  <link rel="stylesheet" href="css/skills.css">
+  <link rel="stylesheet" href="css/projects.css">
+  <link rel="stylesheet" href="css/journey.css">
+  <link rel="stylesheet" href="css/contact.css">
+  <link rel="stylesheet" href="css/snake.css">
+  <link rel="stylesheet" href="css/palette.css">
+</head>
+<body class="ep-body" data-loading="true">
+  <a class="ep-sr-only" href="#ep-main">Skip to content</a>
+
+  <!-- core: icon sprite (arrow-up-right and document are referenced by builders via <use href="#ep-i-...">) -->
+  <svg aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden">
+    <symbol id="ep-i-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
+    <symbol id="ep-i-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
+    <symbol id="ep-i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="ep-i-arrow-up-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+    <symbol id="ep-i-document" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M8 13h8"/><path d="M8 17h8"/><path d="M10 9H8"/></symbol>
+  </svg>
+
+  <!-- core: loader -->
+  <div class="ep-loader" id="ep-loader" aria-live="polite">
+    <span class="ep-loader__logo" role="img" aria-label="Ebad Momin"><span class="ep-loader__base" aria-hidden="true">EBAD MOMIN</span><span class="ep-loader__fill ep-loader__fill--back" aria-hidden="true">EBAD MOMIN</span><span class="ep-loader__fill" aria-hidden="true">EBAD MOMIN</span></span>
+    <p class="ep-loader__meta"><span class="ep-loader__text">loading...</span> <span class="ep-loader__count" id="ep-loader-count">0%</span></p>
+  </div>
+
+  <!-- core: background layers -->
+  <canvas class="ep-particles" id="ep-particles" aria-hidden="true"></canvas>
+  <div class="ep-progress" aria-hidden="true"><span class="ep-progress__bar" id="ep-progress-bar"></span></div>
+
+  <!-- core: navbar -->
+  <header class="ep-navbar" id="ep-navbar">
+    <nav class="ep-navbar__pill" aria-label="Primary">
+      <a class="ep-navbar__logo" href="#intro" aria-label="Ebad Momin, back to top">EM</a>
+      <ul class="ep-navbar__list" id="ep-nav-list">
+        <li><a class="ep-navbar__link" href="#intro" data-nav="intro">Intro</a></li>
+        <li><a class="ep-navbar__link" href="#about" data-nav="about">About</a></li>
+        <li><a class="ep-navbar__link" href="#skills" data-nav="skills">Skills</a></li>
+        <li><a class="ep-navbar__link" href="#work" data-nav="work">Work</a></li>
+        <li><a class="ep-navbar__link" href="#journey" data-nav="journey">Journey</a></li>
+        <li><a class="ep-navbar__link" href="#contact" data-nav="contact">Contact</a></li>
+      </ul>
+      <span class="ep-navbar__indicator" aria-hidden="true"></span>
+      <button class="ep-navbar__kbd" id="ep-snake-trigger" type="button" aria-label="Open command palette">⌘K</button>
+      <button class="ep-navbar__menu" id="ep-menu-toggle" type="button" aria-expanded="false" aria-controls="ep-nav-list">Menu</button>
+    </nav>
+  </header>
+
+  <main id="ep-main">
+    <!-- BEGIN:hero -->
+    <section class="ep-hero" id="intro" data-nav-section="intro">
+      <div class="ep-container ep-hero__inner">
+        <div class="ep-hero__content">
+          <p class="ep-hero__eyebrow">HI, I'M</p>
+          <h1 class="ep-hero__name" aria-label="Ebad Momin"><span class="ep-hero__name-base">Ebad</span> <span class="ep-hero__name-accent">Momin</span></h1>
+          <p class="ep-hero__tagline">
+            <span class="ep-hero__tagline-line ep-hero__tagline-line--muted">shipping production AI &amp;</span>
+            <span class="ep-hero__tagline-line ep-hero__tagline-line--gradient"><span class="ep-hero__rotor" aria-live="off"><span class="ep-hero__word is-current">LLM applications</span><span class="ep-hero__word">multi-agent systems</span><span class="ep-hero__word">MCP servers</span><span class="ep-hero__word">RAG pipelines</span></span></span>
+          </p>
+          <p class="ep-hero__copy">Forward Deployed Engineer and GenAI Developer with 4+ years across data analysis, GenAI and FDE work, embedding with enterprise teams to architect and ship production LLM applications, multi-agent systems, MCP servers and RAG pipelines. Based in Thane, Mumbai.</p>
+          <div class="ep-hero__actions">
+            <a class="ep-btn ep-btn--primary ep-hero__btn ep-hero__btn--primary" href="#work">View Work<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ep-i-arrow-up-right"/></svg></a>
+            <a class="ep-btn ep-btn--ghost ep-hero__btn ep-hero__btn--ghost" href="resume.html" target="_blank" rel="noopener">View Resume<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ep-i-document"/></svg></a>
+          </div>
+        </div>
+        <div class="ep-hero__visual">
+          <div class="ep-hero__figure">
+            <div class="ep-hero__glow" aria-hidden="true"></div>
+            <img class="ep-hero__photo" src="assets/img/headshot-cutout.png" alt="Portrait of Ebad Momin" width="1006" height="1448" decoding="async">
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- END:hero -->
+
+    <!-- BEGIN:about -->
+    <section class="ep-about ep-section" id="about" data-nav-section="about">
+      <div class="ep-container">
+        <div class="ep-section-head ep-reveal">
+          <span class="ep-section-head__num" aria-hidden="true" data-parallax>01</span>
+          <h2 class="ep-section-head__title">About Me</h2>
+          <span class="ep-label ep-section-head__label">[ who i am &amp; what i do ]</span>
+        </div>
+
+        <div class="ep-about__stats ep-reveal" style="--ep-delay: 100ms">
+          <div class="ep-stat">
+            <span class="ep-stat__value"><span class="ep-stat__num" data-count="4">4</span><span class="ep-stat__suffix">+</span></span>
+            <span class="ep-label ep-stat__label">Years of experience</span>
+          </div>
+          <div class="ep-stat">
+            <span class="ep-stat__value"><span class="ep-stat__num" data-count="50000">50,000</span><span class="ep-stat__suffix">+</span></span>
+            <span class="ep-label ep-stat__label">PDFs in production RAG engine</span>
+          </div>
+          <div class="ep-stat">
+            <span class="ep-stat__value"><span class="ep-stat__num" data-count="94">94</span><span class="ep-stat__suffix">%+</span></span>
+            <span class="ep-label ep-stat__label">Retrieval precision</span>
+          </div>
+          <div class="ep-stat">
+            <span class="ep-stat__value"><span class="ep-stat__num" data-count="35">35</span><span class="ep-stat__suffix">%</span></span>
+            <span class="ep-label ep-stat__label">Token cost reduction</span>
+          </div>
+        </div>
+
+        <div class="ep-about__grid">
+          <div class="ep-about__main">
+            <h3 class="ep-about__heading ep-reveal" style="--ep-delay: 200ms">
+              Building robust solutions
+              <span class="ep-about__heading-dim">with precision and purpose.</span>
+            </h3>
+            <p class="ep-about__text ep-reveal" style="--ep-delay: 200ms">I'm a Forward Deployed Engineer and GenAI Developer at AutolyxAi, where I embed with enterprise client teams and C-suite stakeholders to run technical discovery, architect custom AI systems and ship rapid POCs to production.</p>
+            <p class="ep-about__text ep-reveal" style="--ep-delay: 300ms">I build multi-agent workflows and MCP tool servers with LangGraph, LangChain and FastAPI, and production RAG and GraphRAG pipelines with hybrid search and re-ranking. Before engineering I spent several years in sales operations, MIS and analytics at Kotak Securities, Axis Securities and ICICI Securities.</p>
+            <p class="ep-about__badge ep-reveal" style="--ep-delay: 300ms"><span class="ep-about__badge-dot" aria-hidden="true"></span>Open to freelance, contract and full-time roles</p>
+          </div>
+
+          <div class="ep-about__cards">
+            <section class="ep-card ep-about__card ep-reveal" style="--ep-delay: 0ms" aria-label="Education">
+              <p class="ep-label">Education</p>
+              <h3 class="ep-about__entry-title">M.M.S. in Marketing</h3>
+              <p class="ep-about__entry-sub">Mumbai University</p>
+              <p class="ep-about__entry-year">2016</p>
+              <hr class="ep-about__divider">
+              <h3 class="ep-about__entry-title">B.Sc. with Chemistry</h3>
+              <p class="ep-about__entry-sub">Mumbai University</p>
+              <p class="ep-about__entry-year">2013</p>
+            </section>
+
+            <section class="ep-card ep-about__card ep-reveal" style="--ep-delay: 120ms" aria-label="Certifications">
+              <p class="ep-label">Certifications</p>
+              <ul class="ep-about__chips">
+                <li class="ep-tag">Full Stack Data Science <span class="ep-about__issuer">(iNeuron.ai)</span></li>
+                <li class="ep-tag">Prompt Engineering <span class="ep-about__issuer">(Great Learning)</span></li>
+                <li class="ep-tag">Generative AI, Agentic Workflows &amp; MCP Architecture</li>
+                <li class="ep-tag">Advanced Excel <span class="ep-about__issuer">(Udemy)</span></li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- END:about -->
+
+    <!-- BEGIN:skills -->
+    <section class="ep-skills ep-section" id="skills" data-nav-section="skills">
+      <div class="ep-container">
+        <header class="ep-section-head ep-reveal">
+          <span class="ep-section-head__num" data-parallax aria-hidden="true">02</span>
+          <h2 class="ep-section-head__title">Skills</h2>
+          <p class="ep-label ep-section-head__label">[ technical proficiency ]</p>
+        </header>
+      </div>
+
+      <div class="ep-skills__rows">
+        <div class="ep-skills__row">
+          <ul class="ep-skills__track" aria-label="AI coding agents">
+            <li class="ep-skills__chip">Claude Code</li>
+            <li class="ep-skills__chip">OpenAI Codex</li>
+            <li class="ep-skills__chip">Cursor</li>
+            <li class="ep-skills__chip">Windsurf</li>
+            <li class="ep-skills__chip">GitHub Copilot</li>
+            <li class="ep-skills__chip">Cline</li>
+            <li class="ep-skills__chip">Aider</li>
+            <li class="ep-skills__chip">v0.dev</li>
+            <li class="ep-skills__chip">Bolt.new</li>
+            <li class="ep-skills__chip">Replit Agent</li>
+            <li class="ep-skills__chip">n8n</li>
+            <li class="ep-skills__chip">Dify</li>
+          </ul>
+        </div>
+        <div class="ep-skills__row">
+          <ul class="ep-skills__track" aria-label="LLMs and agentic orchestration">
+            <li class="ep-skills__chip">LangGraph</li>
+            <li class="ep-skills__chip">LangChain</li>
+            <li class="ep-skills__chip">LlamaIndex</li>
+            <li class="ep-skills__chip">CrewAI</li>
+            <li class="ep-skills__chip">AutoGen</li>
+            <li class="ep-skills__chip">Model Context Protocol</li>
+            <li class="ep-skills__chip">OpenAI Agents SDK</li>
+            <li class="ep-skills__chip">DSPy</li>
+            <li class="ep-skills__chip">PydanticAI</li>
+            <li class="ep-skills__chip">GPT-4o</li>
+            <li class="ep-skills__chip">Llama 3</li>
+            <li class="ep-skills__chip">DeepSeek-R1</li>
+            <li class="ep-skills__chip">Gemini 1.5 Pro</li>
+            <li class="ep-skills__chip">vLLM</li>
+            <li class="ep-skills__chip">Ollama</li>
+            <li class="ep-skills__chip">LoRA / QLoRA</li>
+          </ul>
+        </div>
+        <div class="ep-skills__row">
+          <ul class="ep-skills__track" aria-label="Advanced RAG and document intelligence">
+            <li class="ep-skills__chip">GraphRAG (Neo4j)</li>
+            <li class="ep-skills__chip">Hybrid Search</li>
+            <li class="ep-skills__chip">Cross-Encoder Re-ranking</li>
+            <li class="ep-skills__chip">Semantic Chunking</li>
+            <li class="ep-skills__chip">Pinecone</li>
+            <li class="ep-skills__chip">Qdrant</li>
+            <li class="ep-skills__chip">Milvus</li>
+            <li class="ep-skills__chip">ChromaDB</li>
+            <li class="ep-skills__chip">PGVector</li>
+            <li class="ep-skills__chip">Docling</li>
+            <li class="ep-skills__chip">LlamaParse</li>
+            <li class="ep-skills__chip">Unstructured.io</li>
+          </ul>
+        </div>
+        <div class="ep-skills__row">
+          <ul class="ep-skills__track" aria-label="Full-stack AI and enterprise integration">
+            <li class="ep-skills__chip">Python</li>
+            <li class="ep-skills__chip">TypeScript</li>
+            <li class="ep-skills__chip">FastAPI</li>
+            <li class="ep-skills__chip">Next.js</li>
+            <li class="ep-skills__chip">React</li>
+            <li class="ep-skills__chip">Streamlit</li>
+            <li class="ep-skills__chip">Gradio</li>
+            <li class="ep-skills__chip">REST &amp; GraphQL</li>
+            <li class="ep-skills__chip">WebSockets</li>
+            <li class="ep-skills__chip">Server-Sent Events</li>
+            <li class="ep-skills__chip">Celery</li>
+            <li class="ep-skills__chip">Redis</li>
+            <li class="ep-skills__chip">Kafka</li>
+            <li class="ep-skills__chip">Salesforce</li>
+            <li class="ep-skills__chip">SAP</li>
+            <li class="ep-skills__chip">ServiceNow</li>
+          </ul>
+        </div>
+        <div class="ep-skills__row">
+          <ul class="ep-skills__track" aria-label="Cloud, MLOps, evals, security, forward deployed and data analytics">
+            <li class="ep-skills__chip">Docker</li>
+            <li class="ep-skills__chip">Kubernetes</li>
+            <li class="ep-skills__chip">AWS Bedrock</li>
+            <li class="ep-skills__chip">AWS ECS</li>
+            <li class="ep-skills__chip">AWS Lambda</li>
+            <li class="ep-skills__chip">Azure OpenAI</li>
+            <li class="ep-skills__chip">GCP Vertex AI</li>
+            <li class="ep-skills__chip">GitHub Actions</li>
+            <li class="ep-skills__chip">LangSmith</li>
+            <li class="ep-skills__chip">Langfuse</li>
+            <li class="ep-skills__chip">Ragas</li>
+            <li class="ep-skills__chip">DeepEval</li>
+            <li class="ep-skills__chip">Guardrails AI</li>
+            <li class="ep-skills__chip">NeMo Guardrails</li>
+            <li class="ep-skills__chip">Presidio</li>
+            <li class="ep-skills__chip">OAuth2 / JWT</li>
+            <li class="ep-skills__chip">RBAC</li>
+            <li class="ep-skills__chip">Rapid POC-to-production</li>
+            <li class="ep-skills__chip">Custom VPC deployment</li>
+            <li class="ep-skills__chip">PostgreSQL</li>
+            <li class="ep-skills__chip">MSSQL</li>
+            <li class="ep-skills__chip">Snowflake</li>
+            <li class="ep-skills__chip">BigQuery</li>
+            <li class="ep-skills__chip">dbt</li>
+            <li class="ep-skills__chip">Pandas</li>
+            <li class="ep-skills__chip">NumPy</li>
+            <li class="ep-skills__chip">scikit-learn</li>
+            <li class="ep-skills__chip">Power BI</li>
+            <li class="ep-skills__chip">Tableau</li>
+            <li class="ep-skills__chip">Advanced Excel</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- END:skills -->
+
+    <!-- BEGIN:projects -->
+    <section class="ep-projects ep-section" id="work" data-nav-section="work">
+      <div class="ep-container">
+        <header class="ep-section-head ep-reveal">
+          <span class="ep-section-head__num" data-parallax aria-hidden="true">03</span>
+          <h2 class="ep-section-head__title">Projects</h2>
+          <p class="ep-label ep-section-head__label">[ selected works ]</p>
+        </header>
+
+        <ul class="ep-projects__grid">
+          <li class="ep-projects__item ep-reveal" style="--ep-delay: 0ms">
+            <article class="ep-card ep-projects__card">
+              <span class="ep-projects__spotlight" aria-hidden="true"></span>
+              <p class="ep-projects__index"><span>01 / </span><span class="ep-projects__name">DATA ANALYST</span></p>
+              <h3 class="ep-projects__title">Sales &amp; Profitability Intelligence Pipeline</h3>
+              <p class="ep-projects__desc">Python and SQL ETL pipelines feeding real-time Power BI dashboards for client sales teams. Tracked monthly KPIs, product margins and regional sales velocity, pinpointed low-margin SKUs and ran targeted cohort campaigns.</p>
+              <p class="ep-projects__code"><span class="ep-projects__prompt" aria-hidden="true">&gt;_</span><span>$ gross_revenue <span class="ep-projects__val">+16%</span>&nbsp;&nbsp;&nbsp;daily_orders <span class="ep-projects__val">+30%</span></span></p>
+              <div class="ep-projects__foot">
+                <ul class="ep-projects__tags">
+                  <li class="ep-tag">Python</li>
+                  <li class="ep-tag">SQL</li>
+                  <li class="ep-tag">Power BI</li>
+                  <li class="ep-tag">ETL</li>
+                </ul>
+              </div>
+            </article>
+          </li>
+
+          <li class="ep-projects__item ep-reveal" style="--ep-delay: 120ms">
+            <article class="ep-card ep-projects__card">
+              <span class="ep-projects__spotlight" aria-hidden="true"></span>
+              <p class="ep-projects__index"><span>02 / </span><span class="ep-projects__name">GENAI</span></p>
+              <h3 class="ep-projects__title">Multimodal Enterprise RAG &amp; GraphRAG Engine</h3>
+              <p class="ep-projects__desc">Hybrid RAG engine over 50,000+ complex PDFs, scanned tables and SQL databases, with Cohere re-ranking, Microsoft Presidio PII redaction, NeMo Guardrails and automated Ragas and Langfuse evaluation gates in CI/CD.</p>
+              <p class="ep-projects__code"><span class="ep-projects__prompt" aria-hidden="true">&gt;_</span><span>$ recall <span class="ep-projects__val">71% → 92%</span></span></p>
+              <div class="ep-projects__foot">
+                <ul class="ep-projects__tags">
+                  <li class="ep-tag">Qdrant</li>
+                  <li class="ep-tag">Docling</li>
+                  <li class="ep-tag">LlamaParse</li>
+                  <li class="ep-tag">LlamaIndex</li>
+                  <li class="ep-tag">Ragas</li>
+                  <li class="ep-tag">Langfuse</li>
+                  <li class="ep-tag">Presidio</li>
+                </ul>
+              </div>
+            </article>
+          </li>
+
+          <li class="ep-projects__item ep-reveal" style="--ep-delay: 240ms">
+            <article class="ep-card ep-projects__card">
+              <span class="ep-projects__spotlight" aria-hidden="true"></span>
+              <p class="ep-projects__index"><span>03 / </span><span class="ep-projects__name">AGENTIC AI</span></p>
+              <h3 class="ep-projects__title">Enterprise Multi-Agent &amp; MCP Workflow Platform</h3>
+              <p class="ep-projects__desc">Multi-agent system built on Claude 3.5 Sonnet, OpenAI Codex and LangGraph, with custom MCP servers for ticket resolution, CRM updates and ERP invoice workflows. Adds SSE streaming, human-in-the-loop approvals and Redis semantic caching.</p>
+              <p class="ep-projects__code"><span class="ep-projects__prompt" aria-hidden="true">&gt;_</span><span>$ latency <span class="ep-projects__val">3.2s → 850ms</span>&nbsp;&nbsp;&nbsp;api_cost <span class="ep-projects__val">-30%</span></span></p>
+              <div class="ep-projects__foot">
+                <ul class="ep-projects__tags">
+                  <li class="ep-tag">LangGraph</li>
+                  <li class="ep-tag">FastAPI</li>
+                  <li class="ep-tag">MCP</li>
+                  <li class="ep-tag">Redis</li>
+                  <li class="ep-tag">Claude</li>
+                  <li class="ep-tag">SSE</li>
+                </ul>
+              </div>
+            </article>
+          </li>
+
+          <li class="ep-projects__item ep-reveal" style="--ep-delay: 360ms">
+            <article class="ep-card ep-projects__card">
+              <span class="ep-projects__spotlight" aria-hidden="true"></span>
+              <p class="ep-projects__index"><span>04 / </span><span class="ep-projects__name">FDE</span></p>
+              <h3 class="ep-projects__title">ICP Account Insight API</h3>
+              <p class="ep-projects__desc">A multi-tenant FastAPI service that turns ideal-customer-profile scores into short, plain-language explanations for sales teams. Each tenant gets its own prompt.</p>
+              <div class="ep-projects__foot">
+                <ul class="ep-projects__tags">
+                  <li class="ep-tag">FastAPI</li>
+                  <li class="ep-tag">Python</li>
+                  <li class="ep-tag">MongoDB</li>
+                  <li class="ep-tag">LLM</li>
+                  <li class="ep-tag">Docker</li>
+                  <li class="ep-tag">AWS S3</li>
+                </ul>
+              </div>
+            </article>
+          </li>
+
+          <li class="ep-projects__item ep-reveal" style="--ep-delay: 480ms">
+            <article class="ep-card ep-projects__card">
+              <span class="ep-projects__spotlight" aria-hidden="true"></span>
+              <p class="ep-projects__index"><span>05 / </span><span class="ep-projects__name">FDE</span></p>
+              <h3 class="ep-projects__title">Win-Probability Change Explainer</h3>
+              <p class="ep-projects__desc">A FastAPI service that explains why a deal's win probability moved between two snapshots, combining model feature importance, CRM activity and historical benchmarks into a short narrative.</p>
+              <div class="ep-projects__foot">
+                <ul class="ep-projects__tags">
+                  <li class="ep-tag">FastAPI</li>
+                  <li class="ep-tag">Python</li>
+                  <li class="ep-tag">LLM</li>
+                  <li class="ep-tag">Pandas</li>
+                  <li class="ep-tag">scikit-learn</li>
+                  <li class="ep-tag">Docker</li>
+                </ul>
+              </div>
+            </article>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!-- END:projects -->
+
+    <!-- BEGIN:journey -->
+    <section class="ep-journey ep-section" id="journey" data-nav-section="journey">
+      <div class="ep-container">
+        <header class="ep-section-head ep-reveal">
+          <span class="ep-section-head__num" data-parallax aria-hidden="true">04</span>
+          <h2 class="ep-section-head__title">Journey</h2>
+          <p class="ep-label ep-section-head__label">[ my story so far ]</p>
+        </header>
+
+        <div class="ep-journey__timeline">
+          <span class="ep-journey__line" aria-hidden="true"></span>
+          <ol class="ep-journey__list">
+            <li class="ep-journey__item ep-journey__item--left">
+              <span class="ep-journey__dot" aria-hidden="true"></span>
+              <article class="ep-card ep-journey__card">
+                <p class="ep-journey__badge">2013</p>
+                <h3 class="ep-journey__title">B.Sc. with Chemistry</h3>
+                <p class="ep-journey__org">Mumbai University</p>
+                <p class="ep-journey__desc">Bachelor of Science with Chemistry, Mumbai University.</p>
+              </article>
+            </li>
+            <li class="ep-journey__item ep-journey__item--right">
+              <span class="ep-journey__dot" aria-hidden="true"></span>
+              <article class="ep-card ep-journey__card">
+                <p class="ep-journey__badge">2016</p>
+                <h3 class="ep-journey__title">M.M.S. in Marketing</h3>
+                <p class="ep-journey__org">Mumbai University</p>
+                <p class="ep-journey__desc">Postgraduate study in marketing, Mumbai University.</p>
+              </article>
+            </li>
+            <li class="ep-journey__item ep-journey__item--left">
+              <span class="ep-journey__dot" aria-hidden="true"></span>
+              <article class="ep-card ep-journey__card">
+                <p class="ep-journey__badge">2016 – 2018</p>
+                <h3 class="ep-journey__title">Management Trainee</h3>
+                <p class="ep-journey__org">Joinmay Mumbai Electronics Pvt Ltd</p>
+                <p class="ep-journey__desc">Managed a sales team and tracked performance through sales analysis and Excel-based MIS reports. Ran product technical training sessions.</p>
+              </article>
+            </li>
+            <li class="ep-journey__item ep-journey__item--right">
+              <span class="ep-journey__dot" aria-hidden="true"></span>
+              <article class="ep-card ep-journey__card">
+                <p class="ep-journey__badge">2018 – 2022</p>
+                <h3 class="ep-journey__title">Assistant Manager</h3>
+                <p class="ep-journey__org">Kotak Securities Pvt Ltd</p>
+                <p class="ep-journey__desc">Managed sales operations and branch performance through automated MIS reporting. Trained 25+ branch employees on consultative sales techniques.</p>
+              </article>
+            </li>
+            <li class="ep-journey__item ep-journey__item--left">
+              <span class="ep-journey__dot" aria-hidden="true"></span>
+              <article class="ep-card ep-journey__card">
+                <p class="ep-journey__badge">2022 – 2023</p>
+                <h3 class="ep-journey__title">Cluster Manager</h3>
+                <p class="ep-journey__org">Axis Securities Pvt Ltd</p>
+                <p class="ep-journey__desc">Built Excel and Power BI dashboards for sales KPIs and operational funnels. Contributed to 120% of the sales target across assigned clusters.</p>
+              </article>
+            </li>
+            <li class="ep-journey__item ep-journey__item--right">
+              <span class="ep-journey__dot" aria-hidden="true"></span>
+              <article class="ep-card ep-journey__card">
+                <p class="ep-journey__badge">2023</p>
+                <h3 class="ep-journey__title">Manager, Retail &amp; Channel Operations</h3>
+                <p class="ep-journey__org">ICICI Securities Ltd</p>
+                <p class="ep-journey__desc">Delivered executive dashboards and KPI tracking pipelines in SQL, Python and Advanced Excel, cutting manual reporting turnaround by 30%.</p>
+              </article>
+            </li>
+            <li class="ep-journey__item ep-journey__item--left ep-journey__item--current">
+              <span class="ep-journey__dot" aria-hidden="true"></span>
+              <article class="ep-card ep-journey__card">
+                <p class="ep-journey__badge">2024 – Present</p>
+                <h3 class="ep-journey__title">Forward Deployed Engineer (FDE) &amp; GenAI Developer</h3>
+                <p class="ep-journey__org">AutolyxAi</p>
+                <p class="ep-journey__desc">Embedded with enterprise engineering teams to architect multi-agent workflows, MCP tool servers and RAG pipelines. Cut POC turnaround by 50% and API costs by 30%.</p>
+              </article>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <!-- END:journey -->
+
+    <!-- BEGIN:contact -->
+    <section class="ep-contact ep-section" id="contact" data-nav-section="contact">
+      <div class="ep-container">
+        <header class="ep-section-head ep-reveal">
+          <span class="ep-section-head__num" data-parallax aria-hidden="true">05</span>
+          <h2 class="ep-section-head__title">Contact</h2>
+          <p class="ep-label ep-section-head__label">[ get in touch ]</p>
+        </header>
+
+        <div class="ep-contact__grid">
+          <div class="ep-contact__info">
+            <h3 class="ep-contact__heading ep-reveal">Let's build something <span class="ep-contact__accent">extraordinary.</span></h3>
+            <p class="ep-contact__copy ep-reveal" style="--ep-delay: 100ms">Have a project in mind, an AI workflow to automate, or a client deployment to scope? My inbox is always open.</p>
+
+            <ul class="ep-contact__links ep-reveal" style="--ep-delay: 200ms">
+              <li>
+                <a class="ep-contact__link" href="mailto:ebadarmanmomin@gmail.com">
+                  <span class="ep-contact__icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ep-i-mail"/></svg></span>
+                  <span class="ep-contact__text">
+                    <span class="ep-label ep-contact__label">Email</span>
+                    <span class="ep-contact__value">ebadarmanmomin@gmail.com</span>
+                  </span>
+                  <svg class="ep-contact__arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ep-i-arrow-up-right"/></svg>
+                </a>
+              </li>
+              <li>
+                <a class="ep-contact__link" href="https://github.com/ebadmomin35" target="_blank" rel="noopener">
+                  <span class="ep-contact__icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ep-i-github"/></svg></span>
+                  <span class="ep-contact__text">
+                    <span class="ep-label ep-contact__label">GitHub</span>
+                    <span class="ep-contact__value">github.com/ebadmomin35</span>
+                  </span>
+                  <svg class="ep-contact__arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ep-i-arrow-up-right"/></svg>
+                </a>
+              </li>
+              <li>
+                <a class="ep-contact__link" href="https://www.linkedin.com/in/ebadmomin/" target="_blank" rel="noopener">
+                  <span class="ep-contact__icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ep-i-linkedin"/></svg></span>
+                  <span class="ep-contact__text">
+                    <span class="ep-label ep-contact__label">LinkedIn</span>
+                    <span class="ep-contact__value">linkedin.com/in/ebadmomin</span>
+                  </span>
+                  <svg class="ep-contact__arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ep-i-arrow-up-right"/></svg>
+                </a>
+              </li>
+              <li>
+                <a class="ep-contact__link" href="resume.html" target="_blank" rel="noopener">
+                  <span class="ep-contact__icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ep-i-document"/></svg></span>
+                  <span class="ep-contact__text">
+                    <span class="ep-label ep-contact__label">Resume</span>
+                    <span class="ep-contact__value">View Resume</span>
+                  </span>
+                  <svg class="ep-contact__arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ep-i-arrow-up-right"/></svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ep-contact__terminal ep-reveal" style="--ep-delay: 300ms">
+            <div class="ep-contact__bar">
+              <span class="ep-contact__dots" aria-hidden="true">
+                <span class="ep-contact__dot ep-contact__dot--violet"></span>
+                <span class="ep-contact__dot ep-contact__dot--warning"></span>
+                <span class="ep-contact__dot ep-contact__dot--success"></span>
+              </span>
+              <span class="ep-contact__bar-title">GET IN TOUCH</span>
+            </div>
+
+            <form class="ep-contact__form" id="ep-contact-form" action="mailto:ebadarmanmomin@gmail.com" method="post" enctype="text/plain">
+              <div class="ep-contact__field">
+                <label class="ep-label ep-contact__field-label" for="ep-contact-name">Your Name</label>
+                <div class="ep-contact__control">
+                  <input class="ep-contact__input" id="ep-contact-name" data-field="name" name="name" type="text" placeholder="Enter your name" required autocomplete="name" maxlength="80">
+                </div>
+              </div>
+
+              <div class="ep-contact__field">
+                <label class="ep-label ep-contact__field-label" for="ep-contact-email">Your Email</label>
+                <div class="ep-contact__control">
+                  <input class="ep-contact__input" id="ep-contact-email" data-field="email" name="email" type="email" placeholder="your@email.com" required autocomplete="email">
+                </div>
+              </div>
+
+              <div class="ep-contact__field">
+                <label class="ep-label ep-contact__field-label" for="ep-contact-subject">Subject</label>
+                <div class="ep-contact__control">
+                  <input class="ep-contact__input" id="ep-contact-subject" data-field="subject" name="subject" type="text" placeholder="e.g. AI Workflow Automation" maxlength="120">
+                </div>
+              </div>
+
+              <div class="ep-contact__field">
+                <label class="ep-label ep-contact__field-label" for="ep-contact-message">Message</label>
+                <div class="ep-contact__control">
+                  <textarea class="ep-contact__textarea" id="ep-contact-message" data-field="message" name="message" rows="4" placeholder="Tell me about your project timeline, requirements, or the problem you want to solve." required minlength="10" maxlength="2000"></textarea>
+                </div>
+              </div>
+
+              <div class="ep-contact__foot">
+                <p class="ep-contact__status"><span aria-hidden="true">&gt; </span><span class="ep-contact__status-text" data-status role="status">Ready to send.</span></p>
+                <button class="ep-btn ep-btn--primary ep-contact__submit" type="submit">Send Message</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- END:contact -->
+  </main>
+
+  <!-- core: footer -->
+  <footer class="ep-footer">
+    <div class="ep-container ep-footer__inner">
+      <p class="ep-footer__copy">© 2026 Ebad Momin. All rights reserved.</p>
+      <ul class="ep-footer__links">
+        <li><a class="ep-icon-btn" href="https://github.com/ebadmomin35" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></a></li>
+        <li><a class="ep-icon-btn" href="https://www.linkedin.com/in/ebadmomin/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></li>
+        <li><a class="ep-icon-btn" href="mailto:ebadarmanmomin@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a></li>
+        <li><a class="ep-icon-btn" href="https://public.tableau.com/app/profile/ebadmomin" target="_blank" rel="noopener" aria-label="Tableau Public"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg></a></li>
+      </ul>
+      <p class="ep-footer__built">Built with HTML, CSS &amp; JavaScript <span aria-hidden="true">♥</span></p>
+    </div>
+  </footer>
+
+  <!-- BEGIN:palette -->
+  <!-- END:palette -->
+
+  <!-- BEGIN:snake -->
+  <dialog class="ep-snake" id="ep-snake" aria-labelledby="ep-snake-title">
+    <header class="ep-snake__header">
+      <div class="ep-snake__title-wrap">
+        <span class="ep-snake__dot" aria-hidden="true"></span>
+        <h2 class="ep-snake__title" id="ep-snake-title">CYBER SNAKE</h2>
+      </div>
+      <div class="ep-snake__header-right">
+        <span class="ep-snake__best-wrap">
+          <svg class="ep-snake__trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+          <span class="ep-sr-only">Best score</span>
+          <span class="ep-snake__best">0</span>
+        </span>
+        <button class="ep-icon-btn ep-snake__close" type="button" aria-label="Close game"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      </div>
+    </header>
+
+    <div class="ep-snake__meta">
+      <p class="ep-snake__score-wrap"><span class="ep-snake__label">Score:</span> <span class="ep-snake__score">0</span></p>
+      <p class="ep-snake__hint">USE ARROWS / D-PAD</p>
+    </div>
+
+    <div class="ep-snake__board">
+      <canvas class="ep-snake__canvas" role="img" aria-label="Snake board. Score 0."></canvas>
+      <div class="ep-snake__overlay">
+        <div class="ep-snake__start">
+          <p class="ep-snake__start-title">Cyber Snake</p>
+          <p class="ep-snake__start-sub">Navigate the neon snake &amp; collect energy orbs!</p>
+          <button class="ep-btn ep-btn--primary ep-snake__start-btn" type="button">START GAME</button>
+        </div>
+        <div class="ep-snake__over" hidden>
+          <p class="ep-snake__over-title">[ GAME OVER ]</p>
+          <p class="ep-snake__over-score">Final Score: 0</p>
+          <button class="ep-btn ep-btn--primary ep-snake__again" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>PLAY AGAIN</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ep-snake__dpad" role="group" aria-label="Direction controls">
+      <button class="ep-icon-btn ep-snake__key ep-snake__key--up" type="button" data-dir="up" aria-label="Up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m18 15-6-6-6 6"/></svg></button>
+      <button class="ep-icon-btn ep-snake__key ep-snake__key--left" type="button" data-dir="left" aria-label="Left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg></button>
+      <button class="ep-icon-btn ep-snake__key ep-snake__key--right" type="button" data-dir="right" aria-label="Right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg></button>
+      <button class="ep-icon-btn ep-snake__key ep-snake__key--down" type="button" data-dir="down" aria-label="Down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></button>
+    </div>
+
+    <p class="ep-sr-only ep-snake__live" aria-live="polite"></p>
+  </dialog>
+
+  <!-- BEGIN:palette-dialog (E6: command palette lives inside the snake block) -->
+  <dialog class="ep-palette" id="ep-palette" aria-labelledby="ep-palette-title">
+    <div class="ep-palette__panel">
+      <h2 class="ep-sr-only" id="ep-palette-title">Command palette</h2>
+      <div class="ep-palette__top">
+        <svg class="ep-palette__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>
+        <input class="ep-palette__input" id="ep-palette-input" type="text" placeholder="Type a command or search..." role="combobox" aria-expanded="true" aria-controls="ep-palette-list" aria-autocomplete="list" autocomplete="off" spellcheck="false">
+        <button class="ep-icon-btn ep-palette__close" type="button" aria-label="Close command palette"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      </div>
+      <ul class="ep-palette__list" id="ep-palette-list" role="listbox" aria-label="Commands">
+        <li class="ep-palette__item" role="option" id="ep-palette-opt-1" aria-selected="false" data-href="#about" data-label="Go to About"><span class="ep-palette__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></span><span class="ep-palette__label">Go to About</span></li>
+        <li class="ep-palette__item" role="option" id="ep-palette-opt-2" aria-selected="false" data-href="#skills" data-label="Go to Skills"><span class="ep-palette__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><span class="ep-palette__label">Go to Skills</span></li>
+        <li class="ep-palette__item" role="option" id="ep-palette-opt-3" aria-selected="false" data-href="#work" data-label="Go to Projects"><span class="ep-palette__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="ep-palette__label">Go to Projects</span></li>
+        <li class="ep-palette__item" role="option" id="ep-palette-opt-4" aria-selected="false" data-href="#journey" data-label="Go to Journey"><span class="ep-palette__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v5h5"/></svg></span><span class="ep-palette__label">Go to Journey</span></li>
+        <li class="ep-palette__item" role="option" id="ep-palette-opt-5" aria-selected="false" data-href="#contact" data-label="Contact Me"><span class="ep-palette__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span><span class="ep-palette__label">Contact Me</span></li>
+        <li class="ep-palette__item" role="option" id="ep-palette-opt-6" aria-selected="false" data-href="https://www.linkedin.com/in/ebadmomin/" data-external="true" data-label="LinkedIn Profile"><span class="ep-palette__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span><span class="ep-palette__label">LinkedIn Profile</span></li>
+        <li class="ep-palette__item" role="option" id="ep-palette-opt-8" aria-selected="false" data-href="https://github.com/ebadmomin35" data-external="true" data-label="GitHub Profile"><span class="ep-palette__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span><span class="ep-palette__label">GitHub Profile</span></li>
+        <li class="ep-palette__item" role="option" id="ep-palette-opt-7" aria-selected="false" data-action="snake" data-label="Play Cyber Snake Game"><span class="ep-palette__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg></span><span class="ep-palette__label">Play Cyber Snake Game</span></li>
+      </ul>
+      <p class="ep-palette__empty" hidden>No matching commands.</p>
+      <div class="ep-palette__foot">
+        <span>Use &uarr; &darr; to navigate</span>
+        <span><kbd class="ep-palette__key">esc</kbd> to close</span>
+      </div>
+    </div>
+  </dialog>
+  <!-- END:palette-dialog -->
+  <!-- END:snake -->
+
+  <!-- Scripts: modules first (each defines window.Portfolio.init<Name>), effects, then main.js which calls them -->
+  <script src="js/hero.js" defer></script>
+  <script src="js/photo-dissolve.js" defer></script>
+  <script src="js/about.js" defer></script>
+  <script src="js/skills.js" defer></script>
+  <script src="js/projects.js" defer></script>
+  <script src="js/journey.js" defer></script>
+  <script src="js/contact.js" defer></script>
+  <script src="js/snake.js" defer></script>
+  <script src="js/palette.js" defer></script>
+  <script src="js/effects.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

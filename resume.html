@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ebad Momin — Resume</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..900&family=Geist+Mono:wght@400..700&family=Urbanist:wght@700..900&display=swap">
+  <link rel="stylesheet" href="css/tokens.css">
+  <style>
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: flex;
+      flex-direction: column;
+      background: var(--ep-bg);
+      color: var(--ep-text);
+      font-family: var(--ep-font-sans);
+    }
+    .resume-bar {
+      flex: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px 16px;
+      padding: 14px clamp(16px, 3vw, 32px);
+      border-bottom: 1px solid var(--ep-border);
+      background: var(--ep-bg-deep);
+    }
+    .resume-title {
+      margin: 0;
+      font-family: var(--ep-font-display);
+      font-weight: var(--ep-fw-bold);
+      font-size: var(--ep-fs-xl);
+      letter-spacing: var(--ep-tracking-display);
+    }
+    .resume-title span { color: var(--ep-text-muted); font-weight: var(--ep-fw-medium); }
+    .resume-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .resume-btn {
+      display: inline-flex;
+      align-items: center;
+      height: 40px;
+      padding: 0 18px;
+      border-radius: var(--ep-radius-pill);
+      font-family: var(--ep-font-sans);
+      font-size: var(--ep-fs-sm);
+      font-weight: var(--ep-fw-semibold);
+      text-decoration: none;
+      transition: background-color 300ms var(--ep-ease-out), border-color 300ms var(--ep-ease-out);
+    }
+    .resume-btn--primary {
+      color: var(--ep-text);
+      background: var(--ep-grad-primary);
+      box-shadow: var(--ep-shadow-glow-primary);
+    }
+    .resume-btn--primary:hover { filter: brightness(1.1); }
+    .resume-btn--ghost {
+      color: var(--ep-text-2);
+      border: 1px solid var(--ep-border-strong);
+    }
+    .resume-btn--ghost:hover { border-color: rgba(139, 92, 246, 0.45); color: var(--ep-text); }
+    .resume-btn:focus-visible { outline: 2px solid var(--ep-primary-soft); outline-offset: 3px; }
+
+    .resume-view {
+      flex: 1 1 auto;
+      min-height: 0;
+      width: 100%;
+      min-height: 320px;
+      border: 0;
+      display: block;
+    }
+    .resume-fallback {
+      margin: 0;
+      padding: 32px clamp(16px, 3vw, 32px);
+      color: var(--ep-text-muted);
+    }
+    .resume-fallback a { color: var(--ep-primary-soft); }
+
+    @media (max-width: 599px) {
+      .resume-btn { flex: 1 1 auto; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <header class="resume-bar">
+    <h1 class="resume-title">Ebad Momin <span>— Resume</span></h1>
+    <div class="resume-actions">
+      <a class="resume-btn resume-btn--primary" href="assets/Ebad_Momin_CV_FDE_AI_Tools.pdf" download>Download PDF</a>
+      <a class="resume-btn resume-btn--ghost" href="index.html#contact">Back to portfolio</a>
+    </div>
+  </header>
+
+  <object class="resume-view" data="assets/Ebad_Momin_CV_FDE_AI_Tools.pdf#view=FitH" type="application/pdf">
+    <p class="resume-fallback">
+      This browser cannot display the PDF here.
+      <a href="assets/Ebad_Momin_CV_FDE_AI_Tools.pdf">Open the resume PDF</a> or use the Download PDF button above.
+    </p>
+  </object>
+</body>
+</html>
