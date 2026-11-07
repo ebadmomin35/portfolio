@@ -1,0 +1,226 @@
+/* ==========================================================================
+   about.css - builder 3. About section (DESIGN_SPEC C.3).
+   Uses shared primitives from base.css (ep-section-head, ep-label, ep-card,
+   ep-reveal, ep-pulse keyframes). Does not redefine them.
+   ========================================================================== */
+
+/* ---------- Stats strip (.ep-about__stats) ---------- */
+.ep-about__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 64px;
+  border: 1px solid var(--ep-border);
+  border-radius: var(--ep-radius-lg);
+  overflow: hidden;
+}
+
+.ep-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 180px;
+  padding: 40px 24px;
+  text-align: center;
+  transition: background var(--ep-dur-base) var(--ep-ease-out);
+}
+.ep-stat + .ep-stat {
+  border-left: 1px solid var(--ep-border);
+}
+.ep-stat:hover {
+  background: rgba(139, 92, 246, 0.06);
+}
+
+.ep-stat__value {
+  display: block;
+  font-family: var(--ep-font-display);
+  font-weight: var(--ep-fw-black);
+  font-size: clamp(2rem, 4.6vw, var(--ep-fs-counter));
+  line-height: var(--ep-lh-tight);
+  color: var(--ep-text);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  transition: color var(--ep-dur-base) var(--ep-ease-out);
+}
+.ep-stat:hover .ep-stat__value {
+  color: var(--ep-primary-soft);
+}
+.ep-stat__suffix {
+  display: inline-block;
+  margin-left: 0.04em;
+  font-size: 0.6em;
+  color: var(--ep-primary);
+}
+
+.ep-stat__label {
+  display: block;
+  margin-top: 12px;
+  font-size: var(--ep-fs-xs);
+  /* Reserve two lines so every value sits on the same top line, even when a label wraps. */
+  min-height: calc(2 * 1.4 * var(--ep-fs-xs));
+}
+
+/* ---------- Main grid (.ep-about__grid) ---------- */
+.ep-about__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 64px;
+  margin-top: 72px;
+  align-items: start;
+}
+
+.ep-about__heading {
+  font-family: var(--ep-font-sans);
+  font-weight: var(--ep-fw-bold);
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  line-height: 1.15;
+  color: var(--ep-text);
+}
+.ep-about__heading-dim {
+  display: block;
+  background: linear-gradient(90deg, var(--ep-text-dim) 0%, var(--ep-text-3) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.ep-about__text {
+  margin-top: 24px;
+  font-size: var(--ep-fs-md);
+  line-height: 1.7;
+  color: var(--ep-text-muted);
+}
+.ep-about__text + .ep-about__text {
+  margin-top: 16px;
+}
+
+/* Availability badge: site purple (--ep-primary), text, border and background. */
+.ep-about__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 36px;
+  margin-top: 32px;
+  padding: 0 16px;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: var(--ep-radius-pill);
+  background: rgba(139, 92, 246, 0.08);
+  font-family: var(--ep-font-mono);
+  font-size: 13px;
+  line-height: 1;
+  color: var(--ep-primary);
+}
+.ep-about__badge-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ep-primary);
+  animation: ep-pulse 2s ease-in-out infinite;
+}
+
+/* ---------- Cards (right column) ---------- */
+.ep-about__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.ep-about__card {
+  padding: 32px;
+}
+.ep-about__card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(139, 92, 246, 0.35);
+}
+
+.ep-about__card .ep-label {
+  display: block;
+}
+
+.ep-about__entry-title {
+  margin-top: 16px;
+  font-family: var(--ep-font-sans);
+  font-weight: var(--ep-fw-bold);
+  font-size: 1.375rem;
+  line-height: 1.3;
+  color: var(--ep-text);
+}
+.ep-about__entry-sub {
+  margin-top: 6px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ep-text-muted);
+}
+.ep-about__entry-year {
+  margin-top: 8px;
+  font-family: var(--ep-font-mono);
+  font-size: var(--ep-fs-sm);
+  color: var(--ep-primary);
+}
+
+.ep-about__divider {
+  height: 1px;
+  margin: 20px 0;
+  border: 0;
+  background: var(--ep-border);
+}
+
+/* Certifications rendered as mono chips (same anatomy as the reference "currently learning" card). */
+.ep-about__chips {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ep-about__chips .ep-tag {
+  height: auto;
+  min-height: 26px;
+  padding: 4px 12px;
+  white-space: normal;
+  line-height: 1.4;
+  /* .ep-tag is a flex box, so the space before each issuer span would collapse without a gap */
+  gap: 4px;
+  /* Chip text on --ep-surface: --ep-text-2 (#d4d4d8) is about 14:1. */
+  color: var(--ep-text-2);
+}
+/* Issuer: --ep-text-muted (#a1a1aa) is about 7.8:1 on --ep-surface, so it separates from the name. */
+.ep-about__issuer {
+  color: var(--ep-text-muted);
+}
+
+/* ---------- Responsive ---------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .ep-stat__value {
+    font-size: clamp(2.5rem, 6vw, var(--ep-fs-counter));
+  }
+}
+
+@media (max-width: 1023px) {
+  .ep-about__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ep-stat:nth-child(odd) {
+    border-left: 0;
+  }
+  .ep-stat:nth-child(n + 3) {
+    border-top: 1px solid var(--ep-border);
+  }
+  .ep-about__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ep-stat {
+    min-height: 150px;
+    padding: 28px 16px;
+  }
+  .ep-stat__value {
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+  .ep-about__card {
+    padding: 24px;
+  }
+}

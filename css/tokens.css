@@ -1,0 +1,122 @@
+/* ==========================================================================
+   tokens.css - design tokens for the Ebad Momin portfolio.
+   Source of truth: DESIGN_SPEC.md section A. Owner: core builder.
+   All tokens live on :root. No other file defines a token.
+   ========================================================================== */
+:root {
+  /* ---------- Colour ---------- */
+  --ep-bg: #090909;                       /* page background (reference --background) */
+  --ep-bg-deep: #050505;                  /* modal board, navbar glass base */
+  --ep-surface: #0a0a0a;                  /* cards, chips, inputs */
+  --ep-surface-raised: #0d0d0d;           /* hovered cards */
+  --ep-surface-glass: rgba(5, 5, 5, 0.72);
+  --ep-border: rgba(255, 255, 255, 0.08);
+  --ep-border-strong: rgba(255, 255, 255, 0.14);
+  --ep-text: #ffffff;
+  --ep-text-2: #d4d4d8;                   /* chip text, body emphasis */
+  --ep-text-muted: #a1a1aa;               /* body copy, inactive nav */
+  --ep-text-3: #71717a;                   /* mono labels */
+  --ep-text-dim: #3f3f46;                 /* dim headline second line */
+  --ep-primary: #8b5cf6;                  /* brand violet */
+  --ep-primary-strong: #7f22fe;           /* primary button start */
+  --ep-primary-soft: #a685ff;             /* hover text, indices */
+  --ep-accent: #06b6d4;                   /* brand cyan (gradient end, food) */
+  --ep-accent-soft: #7af2ff;
+  --ep-warning: #edb200;                  /* terminal dot */
+  --ep-success: #00c758;                  /* terminal dot, "sent" status */
+  --ep-danger: #ff667f;                   /* validation errors */
+  --ep-glow: hsl(263deg 90% 60%);         /* reference --glow-color */
+  --ep-glow-soft: hsl(263deg 90% 60% / 0.16);
+  --ep-glow-strong: hsl(263deg 90% 60% / 0.40);
+  --ep-dot-grid: rgba(255, 255, 255, 0.06);
+  --ep-grad-brand: linear-gradient(90deg, #8b5cf6 0%, #06b6d4 100%);
+  --ep-grad-primary: linear-gradient(135deg, #7f22fe 0%, #8b5cf6 100%);
+  --ep-grad-snake: linear-gradient(135deg, #7f22fe 0%, #8b5cf6 60%, #06b6d4 100%);
+
+  /* ---------- Fonts ---------- */
+  --ep-font-display: "Urbanist", "Urbanist Fallback", "Geist", system-ui, sans-serif;
+  --ep-font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --ep-font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, SFMono-Regular, Consolas, monospace;
+  --ep-fw-regular: 400;
+  --ep-fw-medium: 500;
+  --ep-fw-semibold: 600;
+  --ep-fw-bold: 700;
+  --ep-fw-extrabold: 800;
+  --ep-fw-black: 900;
+
+  /* ---------- Type scale ---------- */
+  --ep-fs-xs: 0.75rem;                    /* 12px, mono micro labels */
+  --ep-fs-sm: 0.875rem;                   /* 14px, nav, chips */
+  --ep-fs-base: 1rem;                     /* 16px */
+  --ep-fs-md: 1.0625rem;                  /* 17px, body paragraphs */
+  --ep-fs-lg: 1.125rem;                   /* 18px, hero paragraph */
+  --ep-fs-xl: 1.25rem;                    /* 20px */
+  --ep-fs-2xl: 1.5rem;                    /* 24px, small card titles */
+  --ep-fs-3xl: 2rem;                      /* 32px, large card titles */
+  --ep-fs-name: clamp(3.5rem, 8.5vw, 8.5rem);      /* hero name */
+  --ep-fs-tagline: clamp(2rem, 4.4vw, 4.5rem);     /* hero two-line tagline */
+  --ep-fs-h2: clamp(2.5rem, 4.6vw, 4rem);          /* section titles */
+  --ep-fs-counter: clamp(3rem, 5vw, 4.5rem);       /* stat counters */
+  --ep-fs-numeral: clamp(8rem, 16vw, 18rem);       /* faint section numbers */
+  --ep-lh-tight: 1;
+  --ep-lh-snug: 1.2;
+  --ep-lh-body: 1.6;
+  --ep-tracking-mono: 0.18em;
+  --ep-tracking-nav: 0.08em;
+  --ep-tracking-display: -0.02em;
+
+  /* ---------- Spacing (4px base) ---------- */
+  --ep-space-1: 0.25rem;
+  --ep-space-2: 0.5rem;
+  --ep-space-3: 0.75rem;
+  --ep-space-4: 1rem;
+  --ep-space-5: 1.25rem;
+  --ep-space-6: 1.5rem;
+  --ep-space-8: 2rem;
+  --ep-space-10: 2.5rem;
+  --ep-space-12: 3rem;
+  --ep-space-16: 4rem;
+  --ep-space-20: 5rem;
+  --ep-space-24: 6rem;
+  --ep-section-y: clamp(5rem, 9vw, 8rem);        /* vertical padding per section */
+  --ep-container: 1280px;
+  --ep-gutter: clamp(1.25rem, 4vw, 2.5rem);
+
+  /* ---------- Radii ---------- */
+  --ep-radius-sm: 6px;
+  --ep-radius-md: 12px;                   /* buttons, inputs, link cards */
+  --ep-radius-lg: 16px;                   /* cards, modal */
+  --ep-radius-xl: 20px;
+  --ep-radius-pill: 9999px;               /* navbar, chips, tags */
+
+  /* ---------- Shadows ---------- */
+  --ep-shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 24px 48px -24px rgba(0, 0, 0, 0.8);
+  --ep-shadow-nav: 0 10px 40px -10px rgba(0, 0, 0, 0.9);
+  --ep-shadow-glow-primary: 0 10px 30px -10px rgba(139, 92, 246, 0.55);
+  --ep-shadow-glow-accent: 0 0 12px rgba(6, 182, 212, 0.8);
+  --ep-shadow-glow-chip: 0 0 18px -4px rgba(139, 92, 246, 0.6);
+
+  /* ---------- Motion ---------- */
+  --ep-ease-out: cubic-bezier(0.22, 1, 0.36, 1);      /* default enter */
+  --ep-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);   /* from reference .75s ease-in-out */
+  --ep-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);/* badges, dots */
+  --ep-dur-fast: 150ms;
+  --ep-dur-base: 300ms;                   /* matches reference .3s transitions */
+  --ep-dur-slow: 750ms;                   /* matches reference .75s */
+  --ep-dur-reveal: 900ms;
+  --ep-dur-loader: 1800ms;
+
+  /* ---------- Z-index ---------- */
+  --ep-z-particles: 0;
+  --ep-z-content: 1;
+  --ep-z-nav: 50;
+  --ep-z-progress: 60;
+  --ep-z-cursor: 70;
+  --ep-z-modal: 80;
+  --ep-z-loader: 90;
+
+  /* ---------- Layout ---------- */
+  --ep-nav-width: min(930px, calc(100vw - 2rem));
+  --ep-nav-height: 56px;
+  --ep-snake-board: min(600px, 86vw);
+}

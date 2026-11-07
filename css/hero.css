@@ -1,0 +1,348 @@
+/* ==========================================================================
+   hero.css - builder 2. Hero section (DESIGN_SPEC C.2) and its entrance,
+   name effect, rotating subtitle, portrait treatment and responsive layouts.
+   Shared primitives (.ep-btn, .ep-label) come from base.css.
+   Breakpoints: mobile < 768px, tablet 768-1023px, desktop >= 1024px.
+   ========================================================================== */
+
+/* ---------- Keyframes ---------- */
+@keyframes ep-hero-rise-24 {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ep-hero-rise-16 {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ep-hero-char {
+  from { transform: translateY(110%); }
+  to { transform: translateY(0); }
+}
+@keyframes ep-hero-photo-in {
+  from { opacity: 0; transform: scale(1.04); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ep-hero-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes ep-hero-breathe {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+/* Rotating subtitle: vertical roll, 400 ms (D3). Out goes up, in comes from below. */
+@keyframes ep-hero-roll-in {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ep-hero-roll-out {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translateY(-100%); }
+}
+
+/* ---------- Section ---------- */
+.ep-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-top: 120px;
+  padding-bottom: 0;
+  overflow: hidden;
+  overflow: clip;
+  scroll-margin-top: 0;
+}
+.ep-hero__inner {
+  position: relative;
+  z-index: var(--ep-z-content);
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ---------- Text column ---------- */
+.ep-hero__content {
+  position: relative;
+  z-index: var(--ep-z-content);
+  width: 100%;
+  max-width: 720px;
+}
+.ep-hero__eyebrow {
+  margin: 0;
+  font-family: var(--ep-font-mono);
+  font-size: var(--ep-fs-sm);
+  font-weight: var(--ep-fw-regular);
+  line-height: 1.4;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ep-primary);
+}
+
+.ep-hero__name {
+  margin: 56px 0 0;
+  font-family: var(--ep-font-display);
+  font-weight: var(--ep-fw-black);
+  font-size: clamp(3.5rem, 6.6vw, 8.5rem);   /* spec token is 8.5vw; reduced to match the reference proportions (see report) */
+  line-height: var(--ep-lh-tight);
+  letter-spacing: var(--ep-tracking-display);
+  color: var(--ep-text);
+  cursor: default;
+}
+/* Each character is wrapped in a masked box by hero.js (entrance and scramble). */
+.ep-hero__char {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+  margin-top: -0.1em;
+  margin-bottom: -0.1em;
+}
+.ep-hero__char-inner {
+  display: inline-block;
+}
+.ep-hero__name-accent {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Tagline: grey line, then a gradient line that rotates through CV phrases (D3). */
+.ep-hero__tagline {
+  margin: 64px 0 0;
+  font-family: var(--ep-font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 4.5rem);      /* spec token is 4.4vw; 4vw keeps line one clear of the portrait (see report) */
+  line-height: 1.1;
+  letter-spacing: var(--ep-tracking-display);
+}
+.ep-hero__tagline-line {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+}
+.ep-hero__tagline-line--muted {
+  color: #52525b;   /* reference grey for the first tagline line (spec C.2) */
+}
+.ep-hero__tagline-line--gradient {
+  padding-bottom: 0.04em;
+}
+
+/* Rotor: every phrase sits in the same grid cell, so the box is as wide as the longest phrase and never jumps. */
+.ep-hero__rotor {
+  display: inline-grid;
+  vertical-align: top;
+  overflow: hidden;                          /* clips the roll */
+  padding-bottom: 0.14em;                    /* room for descenders (g, p) inside the clip */
+  margin-bottom: -0.14em;
+}
+.ep-hero__word {
+  grid-area: 1 / 1;
+  justify-self: start;
+  white-space: nowrap;
+  opacity: 0;
+  background: var(--ep-grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.ep-hero__word.is-current {
+  opacity: 1;
+}
+.ep-hero__word.is-in {
+  animation: ep-hero-roll-in 400ms var(--ep-ease-out) both;
+}
+.ep-hero__word.is-out {
+  animation: ep-hero-roll-out 400ms var(--ep-ease-out) both;
+}
+
+.ep-hero__copy {
+  max-width: 34em;
+  margin: 48px 0 0;
+  font-family: var(--ep-font-sans);
+  font-size: var(--ep-fs-lg);
+  font-weight: var(--ep-fw-regular);
+  line-height: var(--ep-lh-body);
+  color: var(--ep-text-muted);
+}
+
+.ep-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ep-space-4);
+  margin-top: 40px;
+}
+.ep-hero__btn {
+  min-width: 0;
+}
+
+/* ---------- Portrait ---------- */
+.ep-hero__visual {
+  position: relative;
+  z-index: var(--ep-z-content);
+  width: min(86vw, 420px);
+  margin: 56px auto 0;
+}
+.ep-hero__figure {
+  position: relative;
+  width: 100%;
+}
+.ep-hero__photo {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  filter: grayscale(1) contrast(1.05) brightness(0.98);
+  /* The cutout is a straight rectangular crop: shoulders are cut at both side edges (alpha is 255 at x=0 and x=1102
+     below the neck). The head sits well inside (first opaque x is 25 to 33 percent), so this fade only softens the cut. */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
+  -webkit-user-select: none;
+  user-select: none;
+}
+.ep-hero__glow {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: 0;
+  width: 120%;
+  height: 90%;
+  transform: translateX(-50%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+.ep-hero__glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(closest-side, var(--ep-glow-strong), var(--ep-glow-soft) 55%, transparent 75%);
+  filter: blur(40px);
+  animation: ep-hero-breathe 6s ease-in-out infinite;
+}
+/* ---------- Entrance: hidden only when JS has armed the hero and load is pending ---------- */
+.ep-hero.is-armed:not(.is-loaded) .ep-hero__eyebrow,
+.ep-hero.is-armed:not(.is-loaded) .ep-hero__tagline-line,
+.ep-hero.is-armed:not(.is-loaded) .ep-hero__copy,
+.ep-hero.is-armed:not(.is-loaded) .ep-hero__btn,
+.ep-hero.is-armed:not(.is-loaded) .ep-hero__figure,
+.ep-hero.is-armed:not(.is-loaded) .ep-hero__glow {
+  opacity: 0;
+}
+.ep-hero.is-armed:not(.is-loaded) .ep-hero__char-inner {
+  transform: translateY(110%);
+}
+
+/* Fill mode "backwards" keeps the hover transforms of .ep-btn working after the entrance. */
+.ep-hero.is-loaded .ep-hero__eyebrow {
+  animation: ep-fade-up 600ms var(--ep-ease-out) 0ms backwards;
+}
+.ep-hero.is-loaded .ep-hero__char-inner {
+  animation: ep-hero-char 900ms var(--ep-ease-out) backwards;
+  animation-delay: calc(var(--i, 0) * 40ms + 150ms);
+}
+.ep-hero.is-loaded .ep-hero__tagline-line--muted {
+  animation: ep-hero-rise-24 800ms var(--ep-ease-out) 300ms backwards;
+}
+.ep-hero.is-loaded .ep-hero__tagline-line--gradient {
+  animation: ep-hero-rise-24 800ms var(--ep-ease-out) 420ms backwards;
+}
+.ep-hero.is-loaded .ep-hero__copy {
+  animation: ep-hero-rise-24 800ms var(--ep-ease-out) 600ms backwards;
+}
+.ep-hero.is-loaded .ep-hero__btn--primary {
+  animation: ep-hero-rise-16 600ms var(--ep-ease-out) 800ms backwards;
+}
+.ep-hero.is-loaded .ep-hero__btn--ghost {
+  animation: ep-hero-rise-16 600ms var(--ep-ease-out) 900ms backwards;
+}
+.ep-hero.is-loaded .ep-hero__figure {
+  animation: ep-hero-photo-in 1400ms var(--ep-ease-out) 400ms backwards;
+}
+.ep-hero.is-loaded .ep-hero__glow {
+  animation: ep-hero-fade-in 1400ms ease-out 600ms backwards;
+}
+
+/* ---------- Tablet and up: single column, photo under the buttons ---------- */
+@media (min-width: 768px) {
+  .ep-hero__visual {
+    width: min(70vw, 420px);
+    margin-top: 64px;
+  }
+  .ep-hero__name {
+    white-space: nowrap;
+  }
+}
+
+/* ---------- Below desktop: portrait moves up between the tagline and the copy, so it is visible on first screen ---------- */
+@media (max-width: 1023px) {
+  .ep-hero__content {
+    display: contents;
+  }
+  .ep-hero__eyebrow { order: 1; }
+  .ep-hero__name { order: 2; }
+  .ep-hero__tagline { order: 3; }
+  .ep-hero__visual { order: 4; }
+  .ep-hero__copy { order: 5; }
+  .ep-hero__actions { order: 6; }
+  /* Keep the glow inside the photo box so it cannot widen the page (desktop keeps the 120% glow). */
+  .ep-hero__glow {
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    transform: none;
+  }
+}
+
+/* ---------- Desktop: two columns, photo anchored to the section bottom ---------- */
+@media (min-width: 1024px) {
+  .ep-hero__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+  .ep-hero__content {
+    align-self: center;
+    max-width: none;
+    padding-top: 56px;                 /* reference sits the text block slightly lower than true centre */
+    padding-bottom: var(--ep-space-12);
+  }
+  .ep-hero__tagline-line {
+    white-space: nowrap;
+  }
+  .ep-hero__visual {
+    align-self: end;
+    justify-self: end;                 /* pushes the portrait right, clear of the tagline (B1) */
+    width: auto;
+    margin: 0;
+  }
+  .ep-hero__figure {
+    width: fit-content;
+  }
+  .ep-hero__photo {
+    width: auto;
+    height: min(86vh, 820px);
+  }
+}
+
+/* ---------- Reduced motion: no entrance, no name effect, no rotation, no loops ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .ep-hero .ep-hero__char-inner,
+  .ep-hero .ep-hero__eyebrow,
+  .ep-hero .ep-hero__tagline-line,
+  .ep-hero .ep-hero__copy,
+  .ep-hero .ep-hero__btn,
+  .ep-hero .ep-hero__figure {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .ep-hero .ep-hero__glow {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  .ep-hero__glow::before { animation: none; }
+  .ep-hero__word.is-in,
+  .ep-hero__word.is-out { animation: none; }
+}

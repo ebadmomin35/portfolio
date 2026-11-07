@@ -1,0 +1,204 @@
+/* ==========================================================================
+   projects.css - builder 4. Section #work (DESIGN_SPEC C.5).
+   Five project cards in category order (01 DATA ANALYST, 02 GENAI, 03 AGENTIC AI, 04 and 05 FDE).
+   One project per row at every width: each card takes the full container width, in order 01 to 05.
+   Each row stretches to its tallest card; tags are pinned to the bottom. Equal padding on every card.
+   Cards extend the shared .ep-card (surface, border, radius, shadow) in index.html.
+   ========================================================================== */
+
+/* ---------- Grid ---------- */
+.ep-projects__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  margin: 64px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.ep-projects__item {
+  display: flex;
+  min-width: 0;
+  grid-column: 1 / -1;
+}
+
+/* ---------- Card (.ep-card supplies surface, border, radius, shadow) ---------- */
+.ep-projects__card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  padding: 36px;
+  border-radius: var(--ep-radius-xl);
+  transition:
+    transform 550ms var(--ep-ease-out),
+    border-color 550ms var(--ep-ease-out),
+    box-shadow 550ms var(--ep-ease-out);
+}
+.ep-projects__card > *:not(.ep-projects__spotlight) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Pointer glow: a soft radial light behind the content. JS moves it to the corner of the card
+   nearest the pointer (left/top are 0% or 100%), so the light appears to come from that corner. */
+.ep-projects__spotlight {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  width: 460px;
+  height: 460px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(139, 92, 246, 0.22), rgba(139, 92, 246, 0.08) 55%, transparent 100%);
+  transition:
+    left 600ms var(--ep-ease-out),
+    top 600ms var(--ep-ease-out),
+    opacity 400ms var(--ep-ease-out);
+}
+.ep-projects__item.is-hover .ep-projects__spotlight { opacity: 1; }
+
+/* Pressed-tab shading (hover only): a dark inner shade under the pointer's corner and a faint light
+   on the opposite, raised side. JS sets --px / --py (pointer position, percent of the card). */
+.ep-projects__card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(circle at var(--px, 50%) var(--py, 50%), rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0) 62%),
+    radial-gradient(circle at calc(100% - var(--px, 50%)) calc(100% - var(--py, 50%)), rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 60%);
+  transition: opacity 400ms var(--ep-ease-out);
+}
+
+/* Gradient border glow (violet to cyan), visible only as a 1px ring over the card border. */
+.ep-projects__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--ep-primary), var(--ep-accent));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms var(--ep-ease-out);
+}
+
+/* ---------- Index label ---------- */
+.ep-projects__index {
+  margin: 0;
+  font-family: var(--ep-font-mono);
+  font-size: 13px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: var(--ep-tracking-mono);
+  color: var(--ep-text-3);
+}
+.ep-projects__name { color: var(--ep-primary-soft); }
+
+/* ---------- Title, description ---------- */
+.ep-projects__title {
+  margin: 24px 0 0;
+  font-family: var(--ep-font-sans);
+  font-size: var(--ep-fs-2xl);
+  font-weight: var(--ep-fw-bold);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ep-text);
+}
+.ep-projects__desc {
+  margin: 16px 0 0;
+  max-width: 52ch;
+  font-size: var(--ep-fs-md);
+  line-height: 1.6;
+  color: var(--ep-text-muted);
+}
+/* Cards without a metric pill (04 and 05): keep a gap above the tag footer. */
+.ep-projects__desc:last-of-type { margin-bottom: 28px; }
+
+/* ---------- Metric line: dark mono pill with a violet >_ prompt ---------- */
+.ep-projects__code {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  margin: 28px 0 28px;
+  padding: 10px 16px;
+  border: 1px solid var(--ep-border);
+  border-radius: 16px;
+  background: var(--ep-bg-deep);
+  font-family: var(--ep-font-mono);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ep-text-2);
+  white-space: normal;
+}
+.ep-projects__prompt {
+  flex: none;
+  color: var(--ep-primary-soft);
+  font-weight: var(--ep-fw-bold);
+}
+.ep-projects__val { color: var(--ep-primary-soft); }
+
+/* ---------- Footer: tags pinned to the bottom, hairline divider above ---------- */
+.ep-projects__foot {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--ep-border);
+}
+.ep-projects__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------- Hover (fine pointer, motion allowed): pressed-tab 3D tilt ----------
+   --rx / --ry tilt the card so the side opposite the pointer rises toward the viewer and the
+   pointer's corner sinks in. --sx / --sy move an inner shadow onto the pressed corner. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  /* Hover is read from the item wrapper, so the card keeps its state while it tilts. */
+  .ep-projects__item:hover .ep-projects__card {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translate3d(0, -2px, 0);
+    border-color: rgba(139, 92, 246, 0.35);
+    box-shadow:
+      var(--ep-shadow-card),
+      0 0 40px -12px rgba(139, 92, 246, 0.35),
+      inset var(--sx, 0px) var(--sy, 0px) 22px -8px rgba(0, 0, 0, 0.5);
+  }
+  .ep-projects__item:hover .ep-projects__card::before { opacity: 0.6; }
+  .ep-projects__item:hover .ep-projects__card::after { opacity: 1; }
+}
+
+/* Touch and reduced motion: no pointer glow and no tilt. */
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .ep-projects__spotlight { display: none; }
+  .ep-projects__card::after { display: none; }
+}
+
+/* ---------- Tablet and mobile (below 1200px): one column ---------- */
+@media (max-width: 1199px) {
+  .ep-projects__grid { gap: 20px; }
+  .ep-projects__card { padding: 30px; }
+}
+@media (max-width: 767px) {
+  .ep-projects__grid { gap: 16px; margin-top: 48px; }
+  .ep-projects__card { padding: 24px; border-radius: var(--ep-radius-lg); }
+  .ep-projects__code { font-size: 13px; padding: 10px 14px; }
+}

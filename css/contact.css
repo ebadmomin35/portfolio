@@ -1,0 +1,290 @@
+/* ==========================================================================
+   contact.css - builder 5. Spec C.7 (Contact).
+   Desktop: two columns (info left, terminal right). Tablet and mobile: one column.
+   ========================================================================== */
+
+.ep-contact__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 64px;
+  align-items: start;
+  margin-top: 64px;
+}
+
+/* ---------- Left column ---------- */
+.ep-contact__heading {
+  margin: 0;
+  font-family: var(--ep-font-sans);
+  font-weight: var(--ep-fw-bold);
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  line-height: 1.15;
+  color: var(--ep-text);
+}
+.ep-contact__accent {
+  display: block;
+  color: var(--ep-primary);
+}
+.ep-contact__copy {
+  margin: 20px 0 0;
+  max-width: 36em;
+  font-size: var(--ep-fs-md);
+  line-height: 1.6;
+  color: var(--ep-text-muted);
+}
+
+.ep-contact__links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 40px;
+}
+.ep-contact__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 72px;
+  padding: 0 20px;
+  border: 1px dashed var(--ep-border);
+  border-radius: var(--ep-radius-md);
+  background: var(--ep-surface);
+  transition:
+    border-color var(--ep-dur-base) var(--ep-ease-out),
+    background-color var(--ep-dur-base) var(--ep-ease-out);
+}
+.ep-contact__link:hover {
+  border-color: rgba(139, 92, 246, 0.45);
+  background-color: rgba(139, 92, 246, 0.05);
+}
+.ep-contact__link:hover .ep-contact__icon {
+  color: var(--ep-primary-soft);
+  border-color: rgba(139, 92, 246, 0.45);
+}
+.ep-contact__link:hover .ep-contact__arrow {
+  transform: translate(4px, -4px);
+}
+
+.ep-contact__icon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--ep-border);
+  border-radius: 10px;
+  color: var(--ep-text-muted);
+  transition:
+    color var(--ep-dur-base) var(--ep-ease-out),
+    border-color var(--ep-dur-base) var(--ep-ease-out);
+}
+.ep-contact__icon svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.ep-contact__text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.ep-contact__label {
+  font-size: 0.6875rem;
+  line-height: 1.2;
+}
+.ep-contact__value {
+  font-family: var(--ep-font-sans);
+  font-size: 0.9375rem;
+  font-weight: var(--ep-fw-medium);
+  line-height: 1.3;
+  color: var(--ep-text);
+  overflow-wrap: anywhere;
+}
+
+.ep-contact__arrow {
+  margin-left: auto;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--ep-text-3);
+  transition: transform var(--ep-dur-base) var(--ep-ease-out);
+}
+
+/* ---------- Terminal window ---------- */
+.ep-contact__terminal {
+  position: relative;
+  overflow: hidden;
+  background: var(--ep-bg-deep);
+  border: 1px solid var(--ep-border-strong);
+  border-radius: var(--ep-radius-lg);
+  box-shadow: var(--ep-shadow-card), 0 0 60px -20px rgba(139, 92, 246, 0.3);
+}
+
+.ep-contact__bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--ep-border);
+}
+.ep-contact__dots {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+.ep-contact__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.ep-contact__dot--violet { background: var(--ep-primary); }
+.ep-contact__dot--warning { background: var(--ep-warning); }
+.ep-contact__dot--success { background: var(--ep-success); }
+.ep-contact__bar-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  font-family: var(--ep-font-mono);
+  font-size: var(--ep-fs-xs);
+  letter-spacing: var(--ep-tracking-mono);
+  text-transform: uppercase;
+  color: var(--ep-text-3);
+}
+
+.ep-contact__form {
+  display: grid;
+  gap: 28px;
+  padding: 32px;
+}
+
+.ep-contact__field {
+  display: grid;
+  gap: 8px;
+}
+.ep-contact__field-label {
+  font-size: var(--ep-fs-xs);
+  transition: color var(--ep-dur-base) var(--ep-ease-out);
+}
+.ep-contact__field:focus-within .ep-contact__field-label {
+  color: var(--ep-primary-soft);
+}
+.ep-contact__field.is-error .ep-contact__field-label {
+  color: var(--ep-danger);
+}
+
+.ep-contact__control {
+  position: relative;
+}
+/* Focus underline: violet to cyan, grows left to right */
+.ep-contact__control::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--ep-grad-brand);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--ep-dur-base) var(--ep-ease-out), background-color var(--ep-dur-base) ease;
+  pointer-events: none;
+}
+.ep-contact__field:focus-within .ep-contact__control::after {
+  transform: scaleX(1);
+}
+.ep-contact__field.is-error .ep-contact__control::after {
+  background: var(--ep-danger);
+  transform: scaleX(1);
+}
+
+.ep-contact__input,
+.ep-contact__textarea {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid var(--ep-border-strong);
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--ep-font-mono);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ep-text);
+  caret-color: var(--ep-primary-soft);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.ep-contact__textarea {
+  min-height: 112px;
+  resize: vertical;
+}
+.ep-contact__input::placeholder,
+.ep-contact__textarea::placeholder {
+  color: var(--ep-text-dim);
+  opacity: 1;
+}
+.ep-contact__field.is-error .ep-contact__input,
+.ep-contact__field.is-error .ep-contact__textarea {
+  border-bottom-color: var(--ep-danger);
+}
+
+/* ---------- Status and submit ---------- */
+.ep-contact__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 8px;
+}
+.ep-contact__status {
+  margin: 0;
+  font-family: var(--ep-font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--ep-text-3);
+  transition: color var(--ep-dur-base) var(--ep-ease-out);
+}
+.ep-contact__status.is-error { color: var(--ep-danger); }
+.ep-contact__status.is-success { color: var(--ep-success); }
+
+.ep-contact__submit {
+  flex: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.ep-contact__submit:disabled {
+  cursor: wait;
+  opacity: 0.6;
+  transform: none;
+}
+.ep-contact__form.is-sending .ep-contact__submit {
+  cursor: wait;
+}
+
+/* ---------- Entrance: typed status line is driven by contact.js ---------- */
+
+/* ---------- Tablet and mobile: single column ---------- */
+@media (max-width: 1023px) {
+  .ep-contact__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 56px;
+  }
+}
+@media (max-width: 767px) {
+  .ep-contact__form {
+    padding: 20px;
+    gap: 24px;
+  }
+  .ep-contact__link {
+    height: 68px;
+    padding: 0 16px;
+  }
+}

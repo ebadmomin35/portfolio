@@ -1,0 +1,298 @@
+/* ==========================================================================
+   snake.css - builder 6. Cyber Snake modal (DESIGN_SPEC C.8).
+   Owns every .ep-snake* selector. Tokens come from tokens.css; shared
+   primitives (.ep-btn, .ep-icon-btn, .ep-sr-only) come from base.css.
+   ========================================================================== */
+
+/* Body scroll lock while the modal is open (class toggled by snake.js). */
+body.ep-snake-open { overflow: hidden; }
+
+/* ---------- Dialog shell ---------- */
+/* Board size is capped by height too, so the whole modal fits the viewport
+   (work order E6 item 16, bug B2). The dialog clips and never scrolls. */
+.ep-snake {
+  --ep-snake-board: min(600px, 86vw, 56vh);
+  --ep-snake-board: min(600px, 86vw, 56dvh);
+  width: min(760px, 92vw);
+  max-width: 92vw;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--ep-border-strong);
+  border-radius: var(--ep-radius-lg);
+  background: var(--ep-bg-deep);
+  color: var(--ep-text);
+  box-shadow: 0 40px 120px -30px rgba(0, 0, 0, 0.9), 0 0 80px -20px rgba(139, 92, 246, 0.35);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 200ms ease-in, transform 200ms ease-in;
+}
+.ep-snake.is-open {
+  opacity: 1;
+  transform: none;
+  transition-duration: 300ms;
+  transition-timing-function: var(--ep-ease-out);
+}
+
+/* Backdrop: dark scrim with blur. Fades with the dialog. */
+.ep-snake::backdrop {
+  background: rgba(5, 5, 5, 0.7);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 200ms ease-in;
+}
+.ep-snake.is-open::backdrop {
+  opacity: 1;
+  transition-duration: 300ms;
+  transition-timing-function: var(--ep-ease-out);
+}
+
+/* ---------- Header ---------- */
+.ep-snake__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 70px;
+  padding: 0 28px;
+  border-bottom: 1px solid var(--ep-border);
+}
+.ep-snake__title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.ep-snake__dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ep-primary);
+  box-shadow: 0 0 10px var(--ep-primary);
+}
+.ep-snake__title {
+  margin: 0;
+  font-family: var(--ep-font-mono);
+  font-size: 15px;
+  font-weight: var(--ep-fw-bold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ep-text);
+}
+.ep-snake__header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.ep-snake__best-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--ep-font-mono);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ep-accent);
+}
+.ep-snake__trophy {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+.ep-snake__close {
+  border-color: transparent;
+  background: transparent;
+  color: var(--ep-text-muted);
+}
+.ep-snake__close:hover {
+  color: var(--ep-text);
+}
+
+/* ---------- Score row ---------- */
+.ep-snake__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  /* Inline padding matches the board edges (frame-07: labels line up with the board). */
+  padding: 24px max(16px, calc((100% - var(--ep-snake-board)) / 2)) 18px;
+}
+.ep-snake__score-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  font-family: var(--ep-font-mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  color: var(--ep-text-3);
+}
+.ep-snake__score {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: var(--ep-fw-medium);
+  font-variant-numeric: tabular-nums;
+  color: var(--ep-primary);
+  transform-origin: left center;
+}
+.ep-snake__score.is-bump {
+  animation: ep-snake-bump 250ms var(--ep-ease-out);
+}
+.ep-snake__hint {
+  margin: 0;
+  font-family: var(--ep-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ep-text-3);
+  white-space: nowrap;
+}
+
+/* ---------- Board ---------- */
+.ep-snake__board {
+  position: relative;
+  width: var(--ep-snake-board);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 24px;
+  overflow: hidden;
+  border: 1px solid var(--ep-border);
+  border-radius: 12px;
+  background: #050505;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.ep-snake__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Start / pause / game over overlay over the canvas. */
+.ep-snake__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  text-align: center;
+  background: rgba(5, 5, 5, 0.7);
+  animation: ep-snake-fade 300ms var(--ep-ease-out) both;
+}
+.ep-snake__start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.ep-snake__start-title {
+  margin: 0;
+  font-family: var(--ep-font-display);
+  font-size: 40px;
+  font-weight: var(--ep-fw-black);
+  line-height: var(--ep-lh-tight);
+  letter-spacing: var(--ep-tracking-display);
+  text-transform: uppercase;
+  color: var(--ep-text);
+}
+.ep-snake__start-sub {
+  margin: 0 0 8px;
+  max-width: 30ch;
+  font-size: var(--ep-fs-sm);
+  color: var(--ep-text-muted);
+}
+.ep-snake__over {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.ep-snake__over-title {
+  margin: 0;
+  font-family: var(--ep-font-mono);
+  font-size: 22px;
+  font-weight: var(--ep-fw-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ep-danger);
+}
+.ep-snake__over-score {
+  margin: 0;
+  font-family: var(--ep-font-mono);
+  font-size: 15px;
+  color: #ffffff;
+}
+.ep-snake__again {
+  margin-top: 8px;
+}
+
+/* ---------- D-pad (touch devices and narrow screens) ---------- */
+.ep-snake__dpad {
+  display: none;
+  grid-template-columns: repeat(3, 52px);
+  grid-template-rows: repeat(3, 52px);
+  gap: 8px;
+  justify-content: center;
+  margin: 16px auto 0;
+}
+@media (max-width: 767px), (hover: none) {
+  .ep-snake__dpad { display: grid; }
+}
+.ep-snake__key {
+  width: 52px;
+  height: 52px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.ep-snake__key svg {
+  width: 22px;
+  height: 22px;
+}
+.ep-snake__key:active {
+  border-color: rgba(139, 92, 246, 0.5);
+  color: var(--ep-primary-soft);
+}
+.ep-snake__key--up { grid-column: 2; grid-row: 1; }
+.ep-snake__key--left { grid-column: 1; grid-row: 2; }
+.ep-snake__key--right { grid-column: 3; grid-row: 2; }
+.ep-snake__key--down { grid-column: 2; grid-row: 3; }
+
+/* ---------- Narrow screens ---------- */
+@media (max-width: 767px) {
+  .ep-snake__header { height: 60px; padding: 0 16px; }
+  .ep-snake__meta { padding: 16px 16px 12px; }
+  .ep-snake__start-title { font-size: 32px; }
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes ep-snake-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes ep-snake-bump {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* ---------- Reduced motion: open and close are instant ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .ep-snake,
+  .ep-snake.is-open,
+  .ep-snake::backdrop,
+  .ep-snake.is-open::backdrop {
+    transition: none;
+    transform: none;
+  }
+  .ep-snake__score.is-bump,
+  .ep-snake__overlay { animation: none; }
+}

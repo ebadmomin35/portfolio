@@ -1,0 +1,215 @@
+/* ==========================================================================
+   journey.css - builder 5. Spec C.6 (Journey timeline).
+   Base styles are mobile/tablet (single column, line on the left).
+   Desktop (min-width 1024px) switches to the centre line with alternating cards.
+   ========================================================================== */
+
+/* Section: tighter than the shared section padding so the timeline reads as one block */
+.ep-journey.ep-section {
+  padding-block: 64px;
+}
+
+.ep-journey__timeline {
+  --ep-journey-x: 16px;       /* centre of the line, from the left edge (mobile) */
+  --ep-journey-pad: 48px;     /* item inset from the left edge (mobile) */
+  position: relative;
+  margin-top: 56px;
+  max-width: 100%;
+  overflow-x: clip;           /* hidden cards (reveal offset of 24px to 40px) must not widen the page */
+}
+
+/* Track: faint full-height line */
+.ep-journey__timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--ep-journey-x);
+  width: 2px;
+  background: var(--ep-border);
+  pointer-events: none;
+}
+
+/* Fill: violet to cyan, scaled from the top by journey.js (scroll-linked) */
+.ep-journey__line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--ep-journey-x);
+  width: 2px;
+  background: linear-gradient(180deg, var(--ep-primary) 0%, var(--ep-accent) 100%);
+  transform-origin: top center;
+  will-change: transform;
+  pointer-events: none;
+}
+.js .ep-journey__line { transform: scaleY(0); }   /* journey.js draws it; without JS the line is shown in full */
+
+.ep-journey__list {
+  position: relative;
+  padding-left: var(--ep-journey-pad);
+}
+
+/* ---------- Item: vertical rhythm (about 40px between cards) ---------- */
+.ep-journey__item {
+  position: relative;
+  display: block;
+  padding-block: 20px;
+}
+
+/* ---------- Dot ---------- */
+.ep-journey__dot {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: calc(var(--ep-journey-x) + 1px - 7px - var(--ep-journey-pad));
+  margin-top: -7px;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--ep-border-strong);
+  border-radius: 50%;
+  background: var(--ep-bg);
+  transition:
+    transform 500ms var(--ep-ease-spring) 100ms,
+    border-color var(--ep-dur-base) ease-out,
+    box-shadow var(--ep-dur-base) ease-out;
+}
+.ep-journey__dot::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--ep-text-dim);
+  transition: background-color var(--ep-dur-base) ease-out, box-shadow var(--ep-dur-base) ease-out;
+}
+.ep-journey__dot.is-active {
+  border-color: var(--ep-primary);
+  box-shadow: 0 0 0 4px var(--ep-glow-soft), 0 0 14px var(--ep-glow-strong);
+}
+.ep-journey__dot.is-active::before {
+  background: var(--ep-primary);
+  box-shadow: 0 0 8px var(--ep-primary);
+}
+
+/* Current role: title in violet (no pulse ring) */
+.ep-journey__item--current .ep-journey__title {
+  color: var(--ep-primary-soft);
+}
+
+/* ---------- Card ---------- */
+.ep-journey__card {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  padding: 24px 28px;
+  transition:
+    border-color var(--ep-dur-base) var(--ep-ease-out),
+    translate 400ms var(--ep-ease-out),
+    transform var(--ep-dur-reveal) var(--ep-ease-out),
+    opacity var(--ep-dur-reveal) var(--ep-ease-out);
+}
+/* Hover lift uses the individual `translate` property so it does not fight the reveal `transform`. */
+.ep-journey__card:hover {
+  border-color: rgba(139, 92, 246, 0.35);
+  translate: 0 -4px;
+}
+
+.ep-journey__badge {
+  margin: 0 0 12px;
+  font-family: var(--ep-font-mono);
+  font-size: var(--ep-fs-xs);
+  line-height: 1.4;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ep-primary);
+  transition: opacity 600ms var(--ep-ease-out) 200ms, transform 600ms var(--ep-ease-out) 200ms;
+}
+.ep-journey__title {
+  margin: 0;
+  font-family: var(--ep-font-sans);
+  font-weight: var(--ep-fw-bold);
+  font-size: 1.25rem;
+  line-height: 1.3;
+  color: var(--ep-text);
+}
+.ep-journey__org {
+  margin: 4px 0 0;
+  font-size: 0.9375rem;
+  font-weight: var(--ep-fw-medium);
+  line-height: 1.5;
+  color: var(--ep-text-2);
+}
+.ep-journey__desc {
+  margin: 12px 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ep-text-muted);
+}
+
+/* ---------- Reveal (JS on only: hidden until the item enters view) ---------- */
+.js .ep-journey__item:not(.is-visible) .ep-journey__card {
+  opacity: 0;
+  transform: translateX(24px);
+}
+.js .ep-journey__item:not(.is-visible) .ep-journey__dot {
+  transform: scale(0);
+}
+.js .ep-journey__item:not(.is-visible) .ep-journey__badge {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* ---------- Tablet (768 to 1023px): same single column, slightly wider inset ---------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .ep-journey__timeline {
+    --ep-journey-x: 24px;
+    --ep-journey-pad: 56px;
+  }
+}
+
+/* ---------- Desktop (1024px and up): centre line, alternating cards ---------- */
+@media (min-width: 1024px) {
+  .ep-journey__timeline::before,
+  .ep-journey__line {
+    left: 50%;
+    margin-left: -1px;
+  }
+  .ep-journey__list {
+    padding-left: 0;
+  }
+  .ep-journey__item {
+    display: grid;
+    grid-template-columns: minmax(0, 44fr) minmax(0, 12fr) minmax(0, 44fr);
+    align-items: center;
+  }
+  .ep-journey__item .ep-journey__card {
+    grid-row: 1;
+  }
+  .ep-journey__item--left .ep-journey__card {
+    grid-column: 1;
+    justify-self: end;
+  }
+  .ep-journey__item--right .ep-journey__card {
+    grid-column: 3;
+    justify-self: start;
+  }
+  .ep-journey__dot {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-top: 0;
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    align-self: center;
+  }
+  .js .ep-journey__item--left:not(.is-visible) .ep-journey__card {
+    transform: translateX(-40px);
+  }
+  .js .ep-journey__item--right:not(.is-visible) .ep-journey__card {
+    transform: translateX(40px);
+  }
+}

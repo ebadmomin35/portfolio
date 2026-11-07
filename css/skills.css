@@ -1,0 +1,120 @@
+/* ==========================================================================
+   skills.css - builder 4. Section #skills (DESIGN_SPEC C.4).
+   Five full-bleed marquee rows of pill chips. Rows 1, 3, 5 move left; rows 2, 4 move right.
+   Without JS, or under reduced motion, the rows become static wrapped chips.
+   Shared primitives (.ep-section-head, .ep-label, .ep-reveal) live in base.css.
+   ========================================================================== */
+
+/* ---------- Rows container: full bleed, edge fade mask ---------- */
+.ep-skills__rows {
+  display: grid;
+  gap: 16px;
+  margin-top: 64px;
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .ep-skills__rows {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, black 12%, black 88%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, black 12%, black 88%, transparent 100%);
+  }
+}
+.ep-skills__row {
+  min-width: 0;
+}
+
+/* ---------- Track: one list per row (static wrapped by default) ---------- */
+.ep-skills__track {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------- Chip ---------- */
+.ep-skills__chip {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  height: 44px;
+  padding: 0 20px;
+  border: 1px solid var(--ep-border);
+  border-radius: var(--ep-radius-pill);
+  background: var(--ep-surface);
+  font-family: var(--ep-font-mono);
+  font-size: 15px;
+  line-height: 1;
+  color: var(--ep-text-2);
+  white-space: nowrap;
+  cursor: default;
+  transition:
+    color var(--ep-dur-base) var(--ep-ease-out),
+    border-color var(--ep-dur-base) var(--ep-ease-out),
+    box-shadow var(--ep-dur-base) var(--ep-ease-out),
+    background var(--ep-dur-base) var(--ep-ease-out);
+}
+.ep-skills__chip[aria-hidden="true"] { display: none; }
+.ep-skills__chip:hover,
+.ep-skills__chip.is-hover {
+  border-color: rgba(139, 92, 246, 0.6);
+  color: var(--ep-primary-soft);
+  background: rgba(139, 92, 246, 0.08);
+  box-shadow: var(--ep-shadow-glow-chip);
+}
+
+/* ---------- Marquee (only when JS runs and motion is allowed) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .js .ep-skills__track {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 0;
+    width: max-content;
+    animation-duration: 50s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform;
+  }
+  /* Margin instead of gap so both copies share the same 12px seam and translate(-50%) loops exactly. */
+  .js .ep-skills__chip { margin-right: 12px; }
+  .js .ep-skills__chip[aria-hidden="true"] { display: inline-flex; }
+
+  .js .ep-skills__row:nth-child(odd) .ep-skills__track { animation-name: ep-skills-marquee-left; }
+  .js .ep-skills__row:nth-child(even) .ep-skills__track { animation-name: ep-skills-marquee-right; }
+
+  .js .ep-skills__row:nth-child(1) .ep-skills__track { animation-duration: 46s; }
+  .js .ep-skills__row:nth-child(2) .ep-skills__track { animation-duration: 58s; }
+  .js .ep-skills__row:nth-child(3) .ep-skills__track { animation-duration: 52s; }
+  .js .ep-skills__row:nth-child(4) .ep-skills__track { animation-duration: 64s; }
+  .js .ep-skills__row:nth-child(5) .ep-skills__track { animation-duration: 49s; }
+
+  /* Hovering a row, or the row being off screen, freezes it. */
+  .js .ep-skills__row:hover .ep-skills__track,
+  .js .ep-skills__row.is-paused .ep-skills__track { animation-play-state: paused; }
+}
+
+@keyframes ep-skills-marquee-left {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes ep-skills-marquee-right {
+  from { transform: translate3d(-50%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+
+/* ---------- Mobile: 40px chips ---------- */
+@media (max-width: 767px) {
+  .ep-skills__chip {
+    height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+  }
+}
+
+/* ---------- Reduced motion: static wrapped rows, duplicate copy hidden (fallback in the track rules above) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .ep-skills__rows { padding-inline: 16px; }
+  .ep-skills__track { transform: none; }
+}

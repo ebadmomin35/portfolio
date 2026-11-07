@@ -1,0 +1,41 @@
+/* photo-dissolve.css - hero portrait dissolve overlay (owned by js/photo-dissolve.js).
+   Only applied when JS has added .is-photo-dissolving (never under reduced motion). */
+
+/* Canvas overlays are created by JS inside .ep-hero__figure (position: relative). */
+.ep-photo-dissolve {
+  position: absolute;
+  display: block;
+  margin: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Particle layer: bottom 38 percent of the photo. */
+.ep-photo-dissolve--particles {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 38%;
+}
+
+/* Sparkle dust: top right of the hero figure. */
+.ep-photo-dissolve--dust {
+  top: -4%;
+  right: -2%;
+  width: 46%;
+  height: 42%;
+  z-index: 3;
+}
+
+/* Soft mask on the photo's bottom 35 to 38 percent: opaque above 62 percent, transparent at the bottom edge.
+   Intersected with the existing horizontal edge fade from hero.css so both still apply. */
+.ep-hero__figure.is-photo-dissolving .ep-hero__photo {
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%),
+    linear-gradient(to bottom, #000 66%, rgba(0,0,0,0.55) 84%, transparent 100%);
+  mask-image:
+    linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%),
+    linear-gradient(to bottom, #000 66%, rgba(0,0,0,0.55) 84%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}

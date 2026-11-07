@@ -1,0 +1,612 @@
+/* ==========================================================================
+   base.css - core. Reset, body, shared primitives (spec C.0), navbar, loader,
+   scroll progress, particles, footer (C.1), global effects (D), reduced motion (D.1).
+   Shared primitives may be used by every builder; nobody redefines them.
+   ========================================================================== */
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; background: var(--ep-bg); }
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, figure, blockquote, dl, dd { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img, picture, video, canvas { display: block; max-width: 100%; }
+button, input, textarea, select { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+[hidden] { display: none !important; }
+::selection { background: rgba(139, 92, 246, 0.4); color: var(--ep-text); }
+:focus-visible { outline: 2px solid var(--ep-primary-soft); outline-offset: 3px; }
+
+/* ---------- Body and dot grid ---------- */
+html { background: var(--ep-bg); }
+body {
+  position: relative;
+  min-height: 100vh;
+  background: var(--ep-bg);
+  color: var(--ep-text);
+  font-family: var(--ep-font-sans);
+  font-size: var(--ep-fs-base);
+  line-height: var(--ep-lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(var(--ep-dot-grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+main { position: relative; z-index: var(--ep-z-content); }
+body.ep-menu-open { overflow: hidden; }
+
+/* ---------- Shared primitives (C.0) ---------- */
+.ep-container {
+  width: 100%;
+  max-width: var(--ep-container);
+  margin-inline: auto;
+  padding-inline: var(--ep-gutter);
+}
+
+.ep-section {
+  position: relative;
+  padding-block: var(--ep-section-y);
+  scroll-margin-top: 96px;
+}
+[data-nav-section] { scroll-margin-top: 96px; }
+
+.ep-section-head {
+  position: relative;
+  padding-left: 24px;
+}
+.ep-section-head::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--ep-primary), transparent);
+}
+.ep-section-head__num {
+  position: absolute;
+  z-index: 0;
+  top: -0.35em;
+  left: -0.1em;
+  font-family: var(--ep-font-display);
+  font-weight: var(--ep-fw-black);
+  font-size: var(--ep-fs-numeral);
+  line-height: var(--ep-lh-tight);
+  color: rgba(255, 255, 255, 0.06);
+  user-select: none;
+  pointer-events: none;
+  transform: translate3d(0, var(--py, 0px), 0);
+  will-change: transform;
+}
+.ep-section-head__title {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--ep-font-display);
+  font-weight: var(--ep-fw-black);
+  font-size: var(--ep-fs-h2);
+  line-height: var(--ep-lh-tight);
+  letter-spacing: var(--ep-tracking-display);
+  text-transform: uppercase;
+  color: var(--ep-text);
+}
+.ep-section-head__label {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: var(--ep-space-3);
+}
+
+.ep-label {
+  font-family: var(--ep-font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: var(--ep-tracking-mono);
+  color: var(--ep-text-3);
+}
+
+.ep-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 52px;
+  padding: 0 28px;
+  border: 1px solid transparent;
+  border-radius: var(--ep-radius-md);
+  font-family: var(--ep-font-sans);
+  font-size: var(--ep-fs-base);
+  font-weight: var(--ep-fw-semibold);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform var(--ep-dur-base) var(--ep-ease-out),
+    box-shadow var(--ep-dur-base) var(--ep-ease-out),
+    border-color var(--ep-dur-base) var(--ep-ease-out),
+    background var(--ep-dur-base) var(--ep-ease-out);
+}
+.ep-btn svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  transition: transform var(--ep-dur-base) var(--ep-ease-out);
+}
+.ep-btn:hover { transform: translateY(-2px); }
+.ep-btn:hover svg { transform: translate(2px, -2px); }
+.ep-btn--primary {
+  background: var(--ep-grad-primary);
+  color: var(--ep-text);
+  box-shadow: var(--ep-shadow-glow-primary);
+}
+.ep-btn--ghost {
+  background: var(--ep-surface);
+  border-color: var(--ep-border-strong);
+  color: var(--ep-text);
+}
+.ep-btn--ghost:hover {
+  border-color: rgba(139, 92, 246, 0.5);
+  background: var(--ep-surface-raised);
+}
+
+.ep-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 10px;
+  border: 1px solid var(--ep-border);
+  border-radius: var(--ep-radius-pill);
+  background: var(--ep-surface);
+  font-family: var(--ep-font-mono);
+  font-size: var(--ep-fs-xs);
+  color: var(--ep-text-3);
+  white-space: nowrap;
+}
+
+.ep-card {
+  background: var(--ep-surface);
+  border: 1px solid var(--ep-border);
+  border-radius: var(--ep-radius-lg);
+  box-shadow: var(--ep-shadow-card);
+  transition:
+    border-color var(--ep-dur-base) var(--ep-ease-out),
+    transform 400ms var(--ep-ease-out);
+}
+
+.ep-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--ep-border);
+  border-radius: var(--ep-radius-md);
+  background: var(--ep-surface);
+  color: var(--ep-text-muted);
+  transition:
+    border-color var(--ep-dur-base) var(--ep-ease-out),
+    color var(--ep-dur-base) var(--ep-ease-out),
+    background var(--ep-dur-base) var(--ep-ease-out);
+}
+.ep-icon-btn svg { width: 18px; height: 18px; flex: none; }
+.ep-icon-btn:hover {
+  border-color: rgba(139, 92, 246, 0.5);
+  color: var(--ep-primary-soft);
+}
+
+/* Reveal: hidden only when JS is on (html.js). Without JS the content is visible. */
+.js .ep-reveal:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.js .ep-reveal.is-visible {
+  animation: ep-reveal-in var(--ep-dur-reveal) var(--ep-ease-out) var(--ep-delay, 0ms) backwards;
+}
+@keyframes ep-reveal-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+
+.ep-gradient-text {
+  background: var(--ep-grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.ep-sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.ep-sr-only:focus-visible {
+  position: fixed !important;
+  top: 16px;
+  left: 16px;
+  z-index: var(--ep-z-modal);
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 10px 16px;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  border-radius: var(--ep-radius-md);
+  background: var(--ep-surface);
+  color: var(--ep-text);
+}
+
+@keyframes ep-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ep-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+@keyframes ep-heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* ---------- Navbar (C.1) ---------- */
+.ep-navbar {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  right: 0;
+  z-index: var(--ep-z-nav);
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+.ep-navbar__pill {
+  pointer-events: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: var(--ep-nav-width);
+  height: var(--ep-nav-height);
+  padding: 0 10px 0 8px;
+  border: 1px solid var(--ep-border);
+  border-radius: var(--ep-radius-pill);
+  background: var(--ep-surface-glass);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--ep-shadow-nav);
+}
+.ep-navbar__logo {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--ep-border-strong);
+  border-radius: 50%;
+  font-family: var(--ep-font-display);
+  font-weight: var(--ep-fw-black);
+  font-size: var(--ep-fs-sm);
+  line-height: 1;
+  background: var(--ep-grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.ep-navbar__list {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+.ep-navbar__list li { display: block; }
+.ep-navbar__link {
+  position: relative;
+  display: block;
+  padding: 10px 14px;
+  font-family: var(--ep-font-sans);
+  font-size: 0.8125rem;                  /* 13px, owner feedback: smaller navbar labels */
+  font-weight: var(--ep-fw-medium);
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: var(--ep-tracking-nav);
+  white-space: nowrap;
+  color: var(--ep-text-muted);
+  transition: color var(--ep-dur-base) ease;
+}
+.ep-navbar__link:hover { color: var(--ep-text); }
+.ep-navbar__link.is-active {
+  color: var(--ep-text);
+  font-weight: var(--ep-fw-semibold);
+}
+.ep-navbar__indicator {
+  position: absolute;
+  z-index: 0;
+  top: 9px;
+  left: 0;
+  width: 0;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--ep-radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    left 400ms var(--ep-ease-out),
+    width 400ms var(--ep-ease-out),
+    opacity var(--ep-dur-base) ease;
+}
+.ep-navbar__pill.is-ready .ep-navbar__indicator { opacity: 1; }
+.ep-navbar__kbd {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--ep-border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  font-family: var(--ep-font-mono);
+  font-size: 0.8125rem;                  /* same size as the links */
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--ep-text-muted);
+  transition:
+    border-color var(--ep-dur-base) ease,
+    color var(--ep-dur-base) ease;
+}
+.ep-navbar__kbd:hover {
+  border-color: rgba(139, 92, 246, 0.5);
+  color: var(--ep-text);
+}
+.ep-navbar__menu {
+  display: none;
+  position: relative;
+  z-index: 2;
+  align-self: stretch;
+  align-items: center;
+  padding: 0 12px;
+  font-family: var(--ep-font-mono);
+  font-size: 13px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ep-text);
+}
+
+/* Mobile and tablet navbar (< 1024px): list and kbd hide, Menu button shows, list opens as overlay */
+@media (max-width: 1023px) {
+  .ep-navbar__pill {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ep-navbar__kbd { display: none; }
+  .ep-navbar__indicator { display: none; }
+  .ep-navbar__menu { display: inline-flex; }
+  .ep-navbar__list { display: none; }
+  .ep-navbar__list.is-open {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 80px 24px 40px;
+    background: rgba(5, 5, 5, 0.96);
+  }
+  .ep-navbar__list.is-open .ep-navbar__link {
+    padding: 8px 12px;
+    font-family: var(--ep-font-display);
+    font-size: clamp(2rem, 8vw, 3rem);
+    font-weight: var(--ep-fw-black);
+    line-height: 1.1;
+    letter-spacing: var(--ep-tracking-display);
+  }
+  .ep-navbar__list.is-open li { animation: ep-fade-up 400ms var(--ep-ease-out) both; }
+  .ep-navbar__list.is-open li:nth-child(1) { animation-delay: 0ms; }
+  .ep-navbar__list.is-open li:nth-child(2) { animation-delay: 50ms; }
+  .ep-navbar__list.is-open li:nth-child(3) { animation-delay: 100ms; }
+  .ep-navbar__list.is-open li:nth-child(4) { animation-delay: 150ms; }
+  .ep-navbar__list.is-open li:nth-child(5) { animation-delay: 200ms; }
+  .ep-navbar__list.is-open li:nth-child(6) { animation-delay: 250ms; }
+}
+
+/* ---------- Loader (C.1) ---------- */
+.ep-loader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--ep-z-loader);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  overflow: hidden;
+  background: var(--ep-bg);
+  transition: opacity 600ms var(--ep-ease-in-out);
+}
+.ep-loader__meta {
+  position: absolute;
+  right: 32px;
+  bottom: 28px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0;
+}
+.ep-loader.is-fading {
+  opacity: 0;
+  pointer-events: none;
+}
+/* Wordmark as a container: an empty base layer and a gradient fill layer that rises from the bottom.
+   main.js sets --ep-fill (0 to 100) from the same value as the counter. */
+.ep-loader__logo {
+  position: relative;
+  display: block;
+  font-family: var(--ep-font-display);
+  font-weight: var(--ep-fw-black);
+  font-size: clamp(56px, 10vw, 150px);   /* reference wordmark spans about 65% of the width */
+  line-height: 1;
+  white-space: nowrap;
+}
+.ep-loader__base,
+.ep-loader__fill {
+  display: block;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+/* Empty container: the wordmark shape shows dimly (about 18% of the text colour) before the liquid fills it. */
+.ep-loader__base {
+  color: var(--ep-text);
+  -webkit-text-fill-color: var(--ep-text);
+  opacity: 0.18;
+}
+/* Fill layers start fully clipped; main.js sets an inline clip-path (liquid surface) every frame. */
+.ep-loader__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--ep-grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  clip-path: inset(100% 0 0 0);
+}
+.ep-loader__fill--back {
+  opacity: 0.4;   /* slower, fainter wave behind the front liquid */
+}
+.ep-loader__text {
+  font-family: var(--ep-font-mono);
+  font-size: 13px;
+  text-transform: lowercase;
+  color: var(--ep-text-3);
+}
+.ep-loader__count {
+  font-family: var(--ep-font-mono);
+  font-size: 13px;
+  color: var(--ep-text);
+  font-variant-numeric: tabular-nums;
+}
+html:not(.js) .ep-loader { display: none; }
+
+/* ---------- Scroll progress (C.1) ---------- */
+.ep-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: var(--ep-z-progress);
+  pointer-events: none;
+}
+.ep-progress__bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--ep-grad-brand);
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+/* ---------- Particles canvas (D) ---------- */
+.ep-particles {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--ep-z-particles);
+  pointer-events: none;
+}
+
+/* ---------- Footer (C.1) ---------- */
+.ep-footer {
+  position: relative;
+  z-index: var(--ep-z-content);
+  padding: 32px 0;
+  border-top: 1px solid var(--ep-border);
+  background: var(--ep-bg-deep);
+}
+.ep-footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.ep-footer__copy {
+  font-size: var(--ep-fs-sm);
+  color: var(--ep-text-3);
+}
+.ep-footer__links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ep-footer__built {
+  font-family: var(--ep-font-mono);
+  font-size: 13px;
+  color: var(--ep-text-3);
+}
+.ep-footer__built span {
+  display: inline-block;
+  color: var(--ep-danger);
+  animation: ep-heartbeat 1.2s ease-in-out infinite;
+}
+@media (max-width: 767px) {
+  .ep-footer__inner {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  .ep-footer__links { justify-content: center; }
+}
+
+/* ---------- Reduced motion (D.1) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ep-reveal,
+  .js .ep-reveal:not(.is-visible),
+  .js .ep-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+  .ep-marquee-track,
+  .ep-journey__dot::after { animation: none !important; }
+  .ep-footer__built span { animation: none !important; }
+  .ep-particles { display: none !important; }
+  .ep-section-head__num { transform: none; }
+}
