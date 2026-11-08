@@ -135,7 +135,7 @@ The rule: each owner edits only its own files and marker blocks. A file that is 
 | Item | Current state | Where |
 |---|---|---|
 | GitHub handle `ebadmomin35` | Used in footer, contact row and palette command "GitHub Profile". The work orders record a 404 on `github.com/ebadmomin`. The page now uses `ebadmomin35` instead. Ebad has not confirmed this handle, and the 404 check was not re-run. | `index.html` contact, footer, palette |
-| LinkedIn URL | `https://www.linkedin.com/in/ebadmomin/` (trailing slash, from the CV) | `index.html` contact, footer, palette |
+| LinkedIn URL | `https://www.linkedin.com/in/ebadmomin35/`. The owner gave this URL directly, replacing the earlier `ebadmomin` URL taken from the CV. | `index.html` contact, footer, palette |
 | Phone number | Removed. No phone text in the page. | n/a |
 | Availability badge "Open to freelance projects & contract work" | Kept. A `[CONFIRM]` comment sits above it in the about block. | `index.html` about block |
 | Snake start subtitle "Navigate the neon snake & collect energy orbs!" | Copied from the reference. Needs Ebad's own wording or a sign-off. | `index.html` snake block |
