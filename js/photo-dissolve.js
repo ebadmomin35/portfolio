@@ -16,12 +16,14 @@
   function rand(a, b) { return a + Math.random() * (b - a); }
   function lerp(a, b, t) { return a + (b - a) * t; }
 
-  var VIOLET = [139, 92, 246];
+  var SILVER = [190, 226, 236];
   var WHITE = [240, 236, 255];
   var PARTICLE_FRACTION = 0.38;   // canvas covers the bottom 38 percent of the photo
   var START_DELAY_MS = 1500;      // after ep:loaded
   var MAX_PARTICLES = 1400;
   var MAX_DUST = 70;
+  var GONE_P = 0.85;              // scroll progress at which photo, mask, particles and dust are all fully gone
+  var FADE_START_P = 0.5;         // scroll progress where the photo, particles and dust start to fade out
 
   function initPhotoDissolve() {
     var reduced = !!(reduceMQ && reduceMQ.matches);
@@ -52,7 +54,8 @@
       particles: [], dust: [],
       lastT: 0, raf: 0, running: false,
       started: false, visible: true,
-      p: 0, scrollQueued: false, lastP: -1   // scroll dissolve amount 0 (top of page) to 1 (hero scrolled away)
+      p: 0, scrollQueued: false, lastP: -1,  // scroll dissolve amount 0 (top of page) to 1 (hero scrolled away)
+      gone: false                            // true once p >= GONE_P: everything cleared and drawing paused
     };
 
     /* ---------- Scroll-linked dissolve ---------- */
@@ -64,13 +67,40 @@
       return clamp(-rect.top / rect.height, 0, 1);
     }
 
-    // Bottom-up dissolve: the opaque area shrinks upward as p rises; photo opacity is gone by p = 0.9.
+    // Share of the effect still present at p: 1 at FADE_START_P, 0 at GONE_P.
+    function presenceAt(p) {
+      return clamp(1 - (p - FADE_START_P) / (GONE_P - FADE_START_P), 0, 1);
+    }
+
+    // % from the top of the photo where the opaque area ends: 110 = fully opaque, -18 = fully transparent at GONE_P.
+    function dissolveLine(p) {
+      return 110 - 128 * clamp(p / GONE_P, 0, 1);
+    }
+
+    function clearEffects() {
+      state.particles = [];
+      pctx.save();
+      pctx.setTransform(1, 0, 0, 1, 0, 0);
+      pctx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+      pctx.restore();
+      dctx.save();
+      dctx.setTransform(1, 0, 0, 1, 0, 0);
+      dctx.clearRect(0, 0, dCanvas.width, dCanvas.height);
+      dctx.restore();
+    }
+
+    // Bottom-up dissolve: the opaque area shrinks upward as p rises; photo, particles and dust are all gone by GONE_P.
     function applyPhotoDissolve() {
       if (!state.started) return;
       var p = state.p;
+      var gone = p >= GONE_P;
+      if (gone !== state.gone) {
+        state.gone = gone;
+        if (gone) { stop(); clearEffects(); } else { start(); }
+      }
       if (Math.abs(p - state.lastP) < 0.001) return;
       state.lastP = p;
-      var line = 110 - 120 * p;                     // % from the top of the photo; 110 = fully opaque
+      var line = dissolveLine(p);                   // % from the top of the photo; 110 = fully opaque
       var dissolve = 'linear-gradient(to bottom, #000 ' + line.toFixed(1) + '%, transparent ' +
         (line + 18).toFixed(1) + '%)';
       var base = 'linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%), ' +
@@ -80,7 +110,7 @@
       photo.style.maskImage = mask;
       photo.style.webkitMaskComposite = 'source-in';
       photo.style.maskComposite = 'intersect';
-      photo.style.opacity = clamp(1 - (p - 0.5) / 0.4, 0, 1).toFixed(3);
+      photo.style.opacity = presenceAt(p).toFixed(3);   // 0.000 from GONE_P onward
     }
 
     function updateScroll() {
@@ -156,7 +186,7 @@
     /* ---------- Particles ---------- */
     function sampleColour(x, y) {
       // x, y in particle-canvas CSS px. Returns [r, g, b, a] from the photo, or null for transparent pixels.
-      if (!state.pixels) return [VIOLET[0], VIOLET[1], VIOLET[2], 255];
+      if (!state.pixels) return [SILVER[0], SILVER[1], SILVER[2], 255];
       var sx = clamp(Math.floor(x * state.pixW / state.w), 0, state.pixW - 1);
       var sy = clamp(Math.floor(y * state.pixH / state.h), 0, state.pixH - 1);
       var i = (sy * state.pixW + sx) * 4;
@@ -167,7 +197,7 @@
 
     function spawnParticle() {
       // Canvas y of the current dissolve line (null when the line is above the particle layer).
-      var lineFrac = (110 - 120 * state.p) / 100;
+      var lineFrac = dissolveLine(state.p) / 100;
       var lineY = null;
       var cf = (lineFrac - (1 - PARTICLE_FRACTION)) / PARTICLE_FRACTION;
       if (cf >= 0 && cf <= 1) lineY = cf * state.h;
@@ -181,8 +211,8 @@
         }
         var src = sampleColour(x, y);
         if (!src) continue;
-        // Mostly violet, with white highlights. A little of the photo's own colour is kept.
-        var tint = Math.random() < 0.15 ? WHITE : VIOLET;
+        // Mostly cool silver, with white highlights. A little of the photo's own colour is kept.
+        var tint = Math.random() < 0.15 ? WHITE : SILVER;
         var k = tint === WHITE ? 0.9 : 0.85;
         var lift = [lerp(src[0], 255, 0.1), lerp(src[1], 255, 0.1), lerp(src[2], 255, 0.1)];
         var base = [
@@ -209,8 +239,10 @@
       pctx.clearRect(0, 0, state.w, state.h);
       // Spawn at a steady rate: about one particle per 2.5 CSS px of width per second.
       // Rate and brightness follow p: sparse and dim at p = 0 (ambient), denser and brighter as the photo goes.
-      var rate = (state.w / 1.6) * (0.5 + 1.5 * state.p);
-      var bright = 0.6 + 0.4 * state.p;
+      // Both also scale with presenceAt(p), so spawning stops and live particles fade out by GONE_P.
+      var presence = presenceAt(state.p);
+      var rate = (state.w / 1.6) * (0.5 + 1.5 * state.p) * presence;
+      var bright = (0.6 + 0.4 * state.p) * presence;
       state.spawnAcc = (state.spawnAcc || 0) + rate * dt;
       while (state.spawnAcc >= 1 && state.particles.length < MAX_PARTICLES) {
         spawnParticle();
@@ -257,6 +289,7 @@
 
     function drawDust(dt, t) {
       dctx.clearRect(0, 0, state.dw, state.dh);
+      var presence = presenceAt(state.p);
       for (var i = 0; i < state.dust.length; i++) {
         var d = state.dust[i];
         d.x += d.vx * dt;
@@ -265,8 +298,9 @@
         if (d.x < -2) d.x = state.dw + 2;
         if (d.x > state.dw + 2) d.x = -2;
         var tw = 0.5 + 0.5 * Math.sin(t * d.freq + d.phase);
-        var a = 0.25 + 0.6 * tw;
-        var c = d.white ? WHITE : VIOLET;
+        var a = (0.25 + 0.6 * tw) * presence;
+        if (a < 0.005) continue;
+        var c = d.white ? WHITE : SILVER;
         dctx.fillStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a.toFixed(3) + ')';
         dctx.fillRect(d.x, d.y, d.size, d.size);
       }
@@ -279,13 +313,15 @@
       var t = now / 1000;
       var dt = state.lastT ? Math.min(0.05, t - state.lastT) : 0;
       state.lastT = t;
-      drawParticles(dt);
-      drawDust(dt, t);
+      if (!state.gone) {
+        drawParticles(dt);
+        drawDust(dt, t);
+      }
       state.raf = window.requestAnimationFrame(frame);
     }
 
     function start() {
-      if (state.running || !state.started || !state.visible || document.hidden) return;
+      if (state.running || !state.started || state.gone || !state.visible || document.hidden) return;
       state.running = true;
       state.lastT = 0;
       state.raf = window.requestAnimationFrame(frame);

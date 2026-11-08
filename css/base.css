@@ -484,11 +484,11 @@ body.ep-menu-open { overflow: hidden; }
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
-/* Empty container: the wordmark shape shows dimly (about 18% of the text colour) before the liquid fills it. */
+/* Base layer is fully hidden at the start (opacity 0), so the name does not show before the liquid fills it. */
 .ep-loader__base {
   color: var(--ep-text);
   -webkit-text-fill-color: var(--ep-text);
-  opacity: 0.18;
+  opacity: 0;
 }
 /* Fill layers start fully clipped; main.js sets an inline clip-path (liquid surface) every frame. */
 .ep-loader__fill {

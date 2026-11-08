@@ -36,7 +36,7 @@
     var reduced = reducedNow();
 
     var COUNT_MS = reduced ? 300 : 6000;   // reference loader is about 6 s; reduced motion jumps quickly
-    var HOLD_MS = reduced ? 0 : 200;       // pause at 100% before the fade
+    var HOLD_MS = reduced ? 0 : 900;       // pause at 100% (full name revealed) before the fade
     var FADE_MS = reduced ? 300 : 600;
     var fadeStarted = false;
     var startTime = null;
@@ -82,8 +82,6 @@
       if (p >= 100) {
         frontEl.style.clipPath = 'none';
         if (backEl) backEl.style.display = 'none';
-        var baseEl = loader.querySelector('.ep-loader__base');
-        if (baseEl) baseEl.style.opacity = '0';   // hide the dim base so no edge shows at 100%
         return;
       }
       var W = logoEl.offsetWidth, H = logoEl.offsetHeight;

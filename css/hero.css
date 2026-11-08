@@ -141,6 +141,8 @@
   grid-area: 1 / 1;
   justify-self: start;
   white-space: nowrap;
+  padding-bottom: 0.14em;                    /* the gradient is painted in the box, so the box must reach the descenders (g, p) */
+  margin-bottom: -0.14em;                    /* net zero: line height and layout unchanged */
   opacity: 0;
   background: var(--ep-grad-brand);
   -webkit-background-clip: text;
